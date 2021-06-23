@@ -22,7 +22,10 @@ $no = 1;
         </tr>
     
     <?php 
-        $mahasiswa = $collection ->mahasiswa->find();
+        
+       # $arai = $collection ->inventory->aggregate({$project=>{colors=>{$size=>array('$colors')}}});
+        
+        $mahasiswa = $collection ->mahasiswa->find([]);
 
         foreach ($mahasiswa as $mhs){
             echo "<tr>";
@@ -44,6 +47,9 @@ $no = 1;
         }
 
      
+    ?>
+    <?php
+      
     ?>
     </table>
     </body>
