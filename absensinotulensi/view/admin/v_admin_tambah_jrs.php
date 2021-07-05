@@ -1,6 +1,16 @@
 <?php 
+   #kode otomatis untuk jurusan
+   require '../../vendor/autoload.php';
+   require '../../model/connect.php';
+  # $sequence_id_jurusan = $collection->jurusan->find([])->sort(array('kode_jurusan'=>1));
+  # -1 MAX , 1 MIN
+  #$sequence_id_jurusan = $collection ->jurusan->find([],['limit'=>1,'sort'=>['kode_jurusan'=>-1]]);
+  $sequence_id_jurusan = $collection ->jurusan->find([],['limit'=>1,'sort'=>['kode_jurusan'=>-1]]);
+ 
+
+
    if(isset($_POST['submit'])){
-      require '../../model/connect.php';
+      
       $insertOneResult = $collection->jurusan->insertOne([
           'kode_jurusan' => $_POST['kode_jurusan'],
           'nama_jurusan' => $_POST['nama_jurusan']
@@ -27,7 +37,19 @@
          <form method="POST">
             <div class="form-group">
                <strong>Kode Jurusan:</strong>
-               <input type="text" class="form-control" name="kode_jurusan" required="" placeholder="xxxxxxxxx"><br>
+               <input type="text" 
+               value="<?php 
+                     foreach ($sequence_id_jurusan as $sidj){
+                        $sidjrsn = $sidj->kode_jurusan;
+                        $urutan = (int) substr($sidjrsn,3,4);
+                        $urutan++;
+                        $huruf ="KDJ";
+                        $sidjrsn = $huruf . sprintf("%04s", $urutan);
+                        echo $sidjrsn;
+                      }
+               ?>" 
+               
+               class="form-control" name="kode_jurusan" readonly><br>
 
                <strong>Nama Jurusan:</strong>
                <input type="text" class="form-control" name="nama_jurusan" required="" placeholder="xxxxxxxxx"><br>

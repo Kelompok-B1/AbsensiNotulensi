@@ -43,7 +43,7 @@
          <form method="POST">
             <div class="form-group">
                <strong>Kode Jurusan:</strong>
-               <input type="text" class="form-control" value="<?php  echo  $jurusan->kode_jurusan;?>"  name="kode_jurusan" required="" placeholder=""><br>
+               <input type="text" class="form-control" value="<?php  echo  $jurusan->kode_jurusan;?>"  name="kode_jurusan" readonly><br>
 
                <strong>Nama Mahasiswa:</strong>
                <input type="text" class="form-control" value="<?php  echo  $jurusan->nama_jurusan;?>" name="nama_jurusan" required="" placeholder=""><br>

@@ -1,6 +1,6 @@
 <?php 
   require '../../model/connect.php';  
-
+  require '../../vendor/autoload.php';
   if (isset($_GET['id'])) {
     $prodi = $collection->prodi->findOne(['_id' => new MongoDB\BSON\ObjectID($_GET['id'])]);
    }
@@ -43,7 +43,7 @@
          <form method="POST">
             <div class="form-group">
                <strong>Kode Prodi:</strong>
-               <input type="text" class="form-control" value="<?php  echo  $prodi->kode_prodi;?>"  name="kode_prodi" required="" placeholder=""><br>
+               <input type="text" class="form-control" value="<?php  echo  $prodi->kode_prodi;?>"  name="kode_prodi" readonly><br>
 
                <strong>Nama Prodi:</strong>
                <input type="text" class="form-control" value="<?php  echo  $prodi->nama_prodi;?>" name="nama_prodi" required="" placeholder=""><br>

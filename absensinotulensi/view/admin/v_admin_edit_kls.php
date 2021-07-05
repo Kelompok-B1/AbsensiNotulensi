@@ -43,7 +43,7 @@
          <form method="POST">
             <div class="form-group">
                <strong>Kode Kelas:</strong>
-               <input type="text" class="form-control" value="<?php  echo  $kelas->kode_kelas;?>"  name="kode_kelas" required="" placeholder=""><br>
+               <input type="text" class="form-control" value="<?php  echo  $kelas->kode_kelas;?>"  name="kode_kelas" readonly><br>
 
                <strong>Nama Kelasi:</strong>
                <input type="text" class="form-control" value="<?php  echo  $kelas->nama_kelas;?>" name="nama_kelas" required="" placeholder=""><br>

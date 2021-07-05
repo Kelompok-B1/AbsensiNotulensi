@@ -21,7 +21,7 @@ $no = 1;
        # $arai = $collection ->inventory->aggregate({$project=>{colors=>{$size=>array('$colors')}}});
         
         $jurusan = $collection ->jurusan->find([]);
-
+         
         foreach ($jurusan as $jrs){
             echo "<tr>";
             echo "<td>".$no."</td>";

@@ -48,9 +48,8 @@ $no = 1;
 
      
     ?>
-    <?php
-      
-    ?>
+ 
     </table>
+    <a href="v_admin.php">Kembali</a>
     </body>
 </html>

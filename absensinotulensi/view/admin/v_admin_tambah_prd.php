@@ -1,6 +1,11 @@
 <?php 
+
+   require '../../model/connect.php';
+   require '../../vendor/autoload.php';
+   #kode otomatis untuk prodi
+   $sequence_id_prodi = $collection ->prodi->find([],['limit'=>1,'sort'=>['kode_prodi'=>-1]]);
    if(isset($_POST['submit'])){
-      require '../../model/connect.php';
+     
       $insertOneResult = $collection->prodi->insertOne([
           'kode_prodi' => $_POST['kode_prodi'],
           'nama_prodi' => $_POST['nama_prodi'],
@@ -27,7 +32,18 @@
          <form method="POST">
             <div class="form-group">
                <strong>Kode Prodi:</strong>
-               <input type="text" class="form-control" name="kode_prodi" required="" placeholder="xxxxxxxxx"><br>
+               <input type="text" 
+               value="<?php 
+                     foreach ($sequence_id_prodi as $sidp){
+                        $sidprd = $sidp->kode_prodi;
+                        $urutan = (int) substr($sidprd,3,4);
+                        $urutan++;
+                        $huruf ="KDP";
+                        $sidprd = $huruf . sprintf("%04s", $urutan);
+                        echo $sidprd;
+                      }
+               ?>"
+                class="form-control" name="kode_prodi" required="" readonly><br>
 
                <strong>Nama Prodi:</strong>
                <input type="text" class="form-control" name="nama_prodi" required="" placeholder="xxxxxxxxx"><br>

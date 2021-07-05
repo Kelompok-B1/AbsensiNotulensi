@@ -1,6 +1,10 @@
 <?php 
+     require '../../model/connect.php';  
+     require '../../vendor/autoload.php';
+   #kode otomatis untuk kelas
+   $sequence_id_kelas = $collection ->kelas->find([],['limit'=>1,'sort'=>['kode_kelas'=>-1]]);
    if(isset($_POST['submit'])){
-      require '../../model/connect.php';
+     
       $insertOneResult = $collection->kelas->insertOne([
           'kode_kelas' => $_POST['kode_kelas'],
           'nama_kelas' => $_POST['nama_kelas'],
@@ -27,7 +31,18 @@
          <form method="POST">
             <div class="form-group">
                <strong>Kode Kelas:</strong>
-               <input type="text" class="form-control" name="kode_kelas" required="" placeholder="xxxxxxxxx"><br>
+               <input type="text" class="form-control" 
+               value="<?php 
+                     foreach ($sequence_id_kelas as $sidk){
+                        $sidkls = $sidk->kode_kelas;
+                        $urutan = (int) substr($sidkls,3,4);
+                        $urutan++;
+                        $huruf ="KDK";
+                        $sidkls = $huruf . sprintf("%04s", $urutan);
+                        echo $sidkls;
+                      }
+               ?>"
+               name="kode_kelas" readonly><br>
 
                <strong>Nama Kelas:</strong>
                <input type="text" class="form-control" name="nama_kelas" required="" placeholder="xxxxxxxxx"><br>

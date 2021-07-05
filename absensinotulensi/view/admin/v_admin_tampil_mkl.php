@@ -2,8 +2,28 @@
 require '../../vendor/autoload.php';
 require '../../model/connect.php';
 $no = 1;
-?>
 
+
+
+
+    /* Custom document class that stores a UTCDateTime and time zone and also
+     * implements the UTCDateTime interface for portability. */
+   
+
+
+
+?>
+<?php
+$tanggal= mktime(date("m"),date("d"),date("Y"));
+
+echo "Tanggal :".date("d-M-Y", $tanggal) ;
+date_default_timezone_set('Asia/Jakarta');
+$jam=date("H:i:s");
+echo " Jam :".$jam ."\n";
+
+echo date("M");
+
+?>  
 <html>
     <head></head>
     <body>
