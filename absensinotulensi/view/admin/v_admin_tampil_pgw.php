@@ -31,7 +31,9 @@ error_reporting(0);
         
        # $arai = $collection ->inventory->aggregate({$project=>{colors=>{$size=>array('$colors')}}});
         
-        $dosen = $collection ->pegawai->find(['jabatan'=>'D']);
+        
+       
+       $dosen = $collection ->pegawai->find(['jabatan'=>'D']);
 
         
         foreach ($dosen as $dsn){

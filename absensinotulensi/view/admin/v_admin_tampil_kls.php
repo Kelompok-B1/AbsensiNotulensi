@@ -12,23 +12,34 @@ $no = 1;
         <tr>
             <th>No</th>
             <th>Kode Kelas</th>
+            <th>Nama Kelas</th>
             <th>Nama Prodi</th>
-            <th>Kode Prodi</th>
             <th>Aksi</th>
         </tr>
     
     <?php 
         
        # $arai = $collection ->inventory->aggregate({$project=>{colors=>{$size=>array('$colors')}}});
-        
-        $kelas = $collection ->kelas->find([]);
+       $kelas1= $collection->kelas->aggregate([
+        ['$lookup'=>(object)array(
+                    'from'=> "prodi",
+                    'localField'=> "kode_prodi",    
+                    'foreignField'=> "kode_prodi",  
+                    'as'=> "KelasProdi"
+        )],
+        ['$replaceRoot'=>(object)array('newRoot'=>(object)array('$mergeObjects'=>array((object)
+        array('$arrayElemAt'=>array('$KelasProdi',0)),'$$ROOT')))],
+       ['$project'=>(object)array('KelasProdi'=>0)]
+        ]); 
 
-        foreach ($kelas as $kls){
+        //$kelas = $collection ->kelas->find([]);
+
+        foreach ($kelas1 as $kls){
             echo "<tr>";
             echo "<td>".$no."</td>";
             echo "<td>".$kls->kode_kelas."</td>";
             echo "<td>".$kls->nama_kelas."</td>";
-            echo "<td>".$kls->kode_prodi."</td>";
+            echo "<td>".$kls->nama_prodi."</td>";
             echo "<td><a href='v_admin_edit_kls.php?id=".$kls->_id."' >Edit</a> | 
                 <a href='v_admin_delete_kls.php?id=".$kls->_id."' >Delete</a></td>";
             echo "</tr>";

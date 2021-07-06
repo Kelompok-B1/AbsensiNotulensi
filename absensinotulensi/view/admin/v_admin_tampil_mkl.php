@@ -16,12 +16,12 @@ error_reporting(0);
 <?php
 $tanggal= mktime(date("m"),date("d"),date("Y"));
 
-echo "Tanggal :".date("d-M-Y", $tanggal) ;
+echo "Tanggal :".date("Y-m-d", $tanggal) ;
 date_default_timezone_set('Asia/Jakarta');
 $jam=date("H:i:s");
 echo " Jam :".$jam ."\n";
 
-echo date("M");
+//echo date("m");
 
 ?>  
 <html>
@@ -33,7 +33,7 @@ echo date("M");
             <th>No</th>
             <th>Kode Mata Kuliah</th>
             <th>Nama Mata Kuliah</th>
-            <th>NIP</th>
+    
             <th>Aksi</th>
         </tr>
     
@@ -48,14 +48,6 @@ echo date("M");
             echo "<td>".$no."</td>";
             echo "<td>".$mkl->kode_mk."</td>";
             echo "<td>".$mkl->nama_mk."</td>";
-            echo "<td>"; 
-            for ($nip = 0; $nip < 10; $nip++) {
-                if ($mkl->nip[$nip]==null) {
-                break;
-                }
-                echo $mkl->nip[$nip]." ";
-              }
-           echo "</td>";
 
             echo "<td><a href='v_admin_edit_mkl.php?id=".$mkl->_id."' >Edit</a> | 
                 <a href='v_admin_delete_mkl.php?id=".$mkl->_id."' >Delete</a></td>";

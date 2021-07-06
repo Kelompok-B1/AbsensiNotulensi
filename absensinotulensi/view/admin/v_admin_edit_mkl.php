@@ -45,7 +45,7 @@ error_reporting(0);
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Tambah Data Mata Kuliah</title>
+        <title>Ubah Data Mata Kuliah</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
         <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
@@ -64,64 +64,11 @@ error_reporting(0);
                <strong>Nama Mata Kuliah:</strong>
                <input type="text" class="form-control" value="<?php  echo  $matakuliah->nama_mk;?>" name="nama_mk" required="" placeholder=""><br>
               
-               <strong>NIP:</strong>
-               <table id="form-body">
-                     <tr>
-                            <td>
-                                <input type="text" class="form-control"  value="<?php  echo  $matakuliah->nip[0];?>"name="nip[]" placeholder="NIP">
-                            </td>
-                            
-                            <td>
-                            <button type="button" onclick="add_form()" class="btn btn-success">Tambah NIP</button>
-                            </td>
-                   </tr>
-               
-                   <?php 
-               
-               for ($i = 1; $i < 10; $i++) {
-                  if ($matakuliah->nip[$i]==null) {
-                  break;
-                  }
-                 
-
-                  echo "<tr>
-                  <td>
-                      <input type='text' class='form-control' value=".$matakuliah->nip[$i]." name='nip[]' placeholder='NIP'>
-                  </td>
-                  
-                  <td>
-                  <button type='button' class='btn btn-danger' onclick='del_form(this)'>Hapus</button>
-                  </td>
-              </tr>";
-                }
-               
-               ?>
-               
-                </table> 
-                
                 <button type="submit" name="submit" class="btn btn-success">Ubah</button>
             </div>
          </form>
       </div>
        <!-- Custom JavaScript -->
-       <script type="text/javascript">
-            function add_form()
-            {
-                  var html = '';
-      
-                  html += '<tr>';
-                  html += '<td><input type="text" class="form-control" name="nip[]" placeholder="NIP"></td>';
-                  html += '<td><button type="button" class="btn btn-danger" onclick="del_form(this)">Hapus</button></td>';
-                  html += '</tr>';
-      
-                  $('#form-body').append(html);
-            }
-      
-            function del_form(id)
-            {
-                  id.closest('tr').remove();
-            }
-
-        </script>
+       
    </body>
 </html>

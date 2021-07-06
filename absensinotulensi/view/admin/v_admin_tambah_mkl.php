@@ -4,18 +4,11 @@
    #kode otomatsi untuk matakuliah
    $sequence_id_matakuliah = $collection ->matakuliah->find([],['limit'=>1,'sort'=>['kode_mk'=>-1]]);
    if(isset($_POST['submit'])){
-      $nip = array();
-      for ($i = 0; $i < $_POST['nip']; $i++){
-        if($_POST['nip'][$i]){ 
-            array_push($nip,$_POST['nip'][$i]);
-        }else{
-         break;
-         }
-       }
+      
       $insertOneResult = $collection->matakuliah->insertOne([
           'kode_mk' => $_POST['kode_mk'],
           'nama_mk' => $_POST['nama_mk'],
-          'nip' => $nip
+          
 
 
       ]);
@@ -61,42 +54,11 @@
                <strong>Nama Mata Kuliah:</strong>
                <input type="text" class="form-control" name="nama_mk" required="" placeholder="xxxxxxxxx"><br>
                 
-               <strong>NIP :</strong>
-               <table id="form-body">
-                        <tr>
-                            <td>
-                                <input type="text" class="form-control" name="nip[]" placeholder="NIP">
-                            </td>
-                            
-                            <td>
-                            <button type="button" onclick="add_form()" class="btn btn-success">Tambah NIP</button>
-                            </td>
-                        </tr>
-                </table>    
-               
                <button type="submit" name="submit" class="btn btn-success">Tambah</button>
             </div>
          </form>
       </div>
        <!-- Custom JavaScript -->
-         <script type="text/javascript">
-            function add_form()
-            {
-                  var html = '';
-      
-                  html += '<tr>';
-                  html += '<td><input type="text" class="form-control" name="nip[]" placeholder="NIP"></td>';
-                  html += '<td><button type="button" class="btn btn-danger" onclick="del_form(this)">Hapus</button></td>';
-                  html += '</tr>';
-      
-                  $('#form-body').append(html);
-            }
-      
-            function del_form(id)
-            {
-                  id.closest('tr').remove();
-            }
-
-        </script>
+         
    </body>
 </html>

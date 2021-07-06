@@ -13,22 +13,33 @@ $no = 1;
             <th>No</th>
             <th>Kode Prodi</th>
             <th>Nama Prodi</th>
-            <th>Kode Jurusan</th>
+            <th>Nama Jurusan</th>
             <th>Aksi</th>
         </tr>
     
     <?php 
         
        # $arai = $collection ->inventory->aggregate({$project=>{colors=>{$size=>array('$colors')}}});
-        
-        $prodi = $collection ->prodi->find([]);
+       
+     $prodi1= $collection->prodi->aggregate([
+        ['$lookup'=>(object)array(
+                    'from'=> "jurusan",
+                    'localField'=> "kode_jurusan",    
+                    'foreignField'=> "kode_jurusan",  
+                    'as'=> "ProdiJurusan"
+        )],
+        ['$replaceRoot'=>(object)array('newRoot'=>(object)array('$mergeObjects'=>array((object)
+        array('$arrayElemAt'=>array('$jurusanProdi',0)),'$$ROOT')))],
+       ['$project'=>(object)array('jurusanProdi'=>0)]
+        ]);
+        //$prodi = $collection ->prodi->find([]);
 
-        foreach ($prodi as $prd){
+        foreach ($prodi1 as $prd){
             echo "<tr>";
             echo "<td>".$no."</td>";
             echo "<td>".$prd->kode_prodi."</td>";
             echo "<td>".$prd->nama_prodi."</td>";
-            echo "<td>".$prd->kode_jurusan."</td>";
+            echo "<td>".$prd->nama_jurusan."</td>";
             echo "<td><a href='v_admin_edit_prd.php?id=".$prd->_id."' >Edit</a> | 
                 <a href='v_admin_delete_prd.php?id=".$prd->_id."' >Delete</a></td>";
             echo "</tr>";
