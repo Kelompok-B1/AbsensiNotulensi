@@ -1,12 +1,28 @@
 <?php 
   require '../../model/connect.php';  
-
+error_reporting(0);
   if (isset($_GET['id'])) {
     $dosen = $collection->pegawai->findOne(['_id' => new MongoDB\BSON\ObjectID($_GET['id'])]);
    }
  
    if(isset($_POST['submit'])){
-      
+      $kdk = array();
+      for ($i = 0; $i < $_POST['kode_kelas']; $i++){
+        if($_POST['kode_kelas'][$i]){ 
+            array_push($kdk,$_POST['kode_kelas'][$i]);
+        }else{
+         break;
+         }
+       }
+
+       $kmk = array();
+       for ($i = 0; $i < $_POST['kode_mk']; $i++){
+         if($_POST['kode_mk'][$i]){ 
+             array_push($kmk,$_POST['kode_mk'][$i]);
+         }else{
+          break;
+          }
+        }
     $collection->pegawai->updateOne(
        ['_id' => new MongoDB\BSON\ObjectID($_GET['id'])],
        ['$set' =>['nip' => $_POST['nip'],'nama_pgw' => $_POST['nama_pgw'],'jk' => $_POST['jk'],
@@ -17,8 +33,8 @@
        'kode_pos' => $_POST['kode_pos'],'kecamatan' => $_POST['kecamatan'],
        'kabupaten_kota' => $_POST['kabupaten_kota'],'provinsi' => $_POST['provinsi'],),
 
-       kode_kelas => array($_POST['kode_kelas1'],$_POST['kode_kelas2']),
-       kode_mk => array($_POST['kode_mk1'],$_POST['kode_mk2']),
+       kode_kelas => $kdk,
+       kode_mk => $kmk,
        'akun' => (object)array('username' => $_POST['nip'],'password' => $_POST['password']),
        'email' => $_POST['email'],]]
        
@@ -51,7 +67,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
         <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
-        <script src="repeater.js" type="text/javascript"></script>
+       
    </head>
    <body>
       <div class="container">
@@ -107,26 +123,70 @@
                
                <strong>Kode Kelas:</strong>
                <table id="form-body">
-                        <tr>
+                     <tr>
                             <td>
-                                <input type="text" class="form-control" name="kode_kelas[]" placeholder="Kode Kelas">
+                                <input type="text" class="form-control"  value="<?php  echo  $dosen->kode_kelas[0];?>"name="kode_kelas[]" placeholder="Kode Kelas">
                             </td>
                             
                             <td>
                             <button type="button" onclick="add_form()" class="btn btn-success">Tambah Kode Kelas</button>
-            
                             </td>
-                        </tr>
+                   </tr>
+               <?php 
+               
+               for ($i = 1; $i < 10; $i++) {
+                  if ($dosen->kode_kelas[$i]==null) {
+                  break;
+                  }
+                 
+
+                  echo "<tr>
+                  <td>
+                      <input type='text' class='form-control' value=".$dosen->kode_kelas[$i]." name='kode_kelas[]' placeholder='Kode Kelas'>
+                  </td>
+                  
+                  <td>
+                  <button type='button' class='btn btn-danger' onclick='del_form(this)'>Hapus</button>
+                  </td>
+              </tr>";
+                }
+               
+               ?>
                 </table>  
                
                
-               <strong>Kode Mata Kuliah 2 :</strong>
-               <input type="text" class="form-control" value="<?php  echo  $dosen->kode_mk[0];?>" name="kode_mk1"  placeholder="xxxxxxxxx" required><br>
+               <strong>Kode Mata Kuliah:</strong>
+               <table id="form-body2">
+                     <tr>
+                            <td>
+                                <input type="text" class="form-control"  value="<?php  echo  $dosen->kode_mk[0];?>"name="kode_mk[]" placeholder="Kode Mata Kuliah">
+                            </td>
+                            
+                            <td>
+                            <button type="button" onclick="add_form2()" class="btn btn-success">Tambah Kode Mata Kuliah</button>
+                            </td>
+                   </tr>
+               <?php 
                
+               for ($i = 1; $i < 10; $i++) {
+                  if ($dosen->kode_mk[$i]==null) {
+                  break;
+                  }
+                
 
-               <strong>Kode Mata Kuliah 2 :</strong>
-               <input type="text" class="form-control" value="<?php  echo  $dosen->kode_mk[1];?>" name="kode_mk2"  placeholder="xxxxxxxxx"><br>
+                  echo "<tr>
+                  <td>
+                      <input type='text' class='form-control' value=".$dosen->kode_mk[$i]." name='kode_mk[]' placeholder='Kode Mata Kuliah'>
+                  </td>
+                  
+                  <td>
+                  <button type='button' class='btn btn-danger' onclick='del_form2(this)'>Hapus</button>
+                  </td>
+              </tr>";
+                }
                
+               ?>
+                </table>  
                <button type="submit" name="submit" class="btn btn-success">Ubah</button>
             </div>
          </form>
@@ -147,6 +207,23 @@
         }
  
         function del_form(id)
+        {
+            id.closest('tr').remove();
+        }
+
+        function add_form2()
+        {
+            var html = '';
+ 
+            html += '<tr>';
+            html += '<td><input type="text" class="form-control" name="kode_mk[]" placeholder="Kode Mata Kuliah"></td>';
+              html += '<td><button type="button" class="btn btn-danger" onclick="del_form2(this)">Hapus</button></td>';
+            html += '</tr>';
+ 
+            $('#form-body2').append(html);
+        }
+ 
+        function del_form2(id)
         {
             id.closest('tr').remove();
         }

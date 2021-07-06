@@ -8,13 +8,22 @@
       $kdk = array();
       for ($i = 0; $i < $_POST['kode_kelas']; $i++){
         if($_POST['kode_kelas'][$i]){ 
-        array_push($kdk,$_POST['kode_kelas'][$i]);
-      }else{
+            array_push($kdk,$_POST['kode_kelas'][$i]);
+        }else{
          break;
-      }
-      }
+         }
+       }
 
-      $b = array('a','b',$_POST['kode_kelas'][0]);
+       $kmk = array();
+      for ($i = 0; $i < $_POST['kode_mk']; $i++){
+        if($_POST['kode_mk'][$i]){ 
+            array_push($kmk,$_POST['kode_mk'][$i]);
+        }else{
+         break;
+         }
+       }
+
+     
         
       $insertOneResult = $collection->pegawai->insertOne([
           'nip' => $_POST['nip'],
@@ -27,8 +36,8 @@
                         'kode_pos' => $_POST['kode_pos'],'kecamatan' => $_POST['kecamatan'],
                          'kabupaten_kota' => $_POST['kabupaten_kota'],'provinsi' => $_POST['provinsi'],),
           'jabatan' => 'D',
-          'kode_kelas' =>$kdk,
-          'kode_mk' => array($_POST['kode_mk1'],$_POST['kode_mk2']),
+          kode_kelas =>$kdk,
+          kode_mk => $kmk,
           'email' => $_POST['email'],
           'akun' => (object)array('username' => $_POST['nip'],'password' => $_POST['password'])
 
@@ -48,7 +57,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
         <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
-        <script src="repeater.js" type="text/javascript"></script>
+        
    </head>
    <body>
       <div class="container">
@@ -118,7 +127,7 @@
                <table id="form-body">
                         <tr>
                             <td>
-                                <input type="text" class="form-control" name="kode_kelas[]" placeholder="Kelas">
+                                <input type="text" class="form-control" name="kode_kelas[]" placeholder="Kode Kelas">
                             </td>
                             
                             <td>
@@ -127,14 +136,20 @@
                         </tr>
                 </table>        
                
-               <strong>Kode Mata Kuliah 1:</strong>
-               <input type="text" class="form-control" name="kode_mk1"  placeholder="xxxxxxxxx"><br>
-
-               <strong>Kode Mata Kuliah 2:</strong>
-               <input type="text" class="form-control" name="kode_mk2" placeholder="xxxxxxxxx"><br>
+                <strong>Kode Mata Kuliah:</strong>
+               <table id="form-body2">
+                        <tr>
+                            <td>
+                                <input type="text" class="form-control" name="kode_mk[]" placeholder=" Kode Mata Kuliah">
+                            </td>
+                            
+                            <td>
+                            <button type="button" onclick="add_form2()" class="btn btn-success">Tambah Kode Mata Kuliah</button>
+                            </td>
+                        </tr>
+                </table>         
                <button type="submit" name="submit" class="btn btn-success">Tambah</button>
-               <button type="button" onclick="add_form()" class="btn btn-success">Tambah Kode Kelas</button>
-                   
+                      
             </div>
          </form>
 
@@ -155,6 +170,23 @@
         }
  
         function del_form(id)
+        {
+            id.closest('tr').remove();
+        }
+
+        function add_form2()
+        {
+            var html = '';
+ 
+            html += '<tr>';
+            html += '<td><input type="text" class="form-control" name="kode_mk[]" placeholder="Kode Mata Kuliah "></td>';
+              html += '<td><button type="button" class="btn btn-danger" onclick="del_form2(this)">Hapus</button></td>';
+            html += '</tr>';
+ 
+            $('#form-body2').append(html);
+        }
+ 
+        function del_form2(id)
         {
             id.closest('tr').remove();
         }

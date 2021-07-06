@@ -3,7 +3,7 @@ require '../../vendor/autoload.php';
 require '../../model/connect.php';
 $no = 1;
 
-
+error_reporting(0);
 
 
     /* Custom document class that stores a UTCDateTime and time zone and also
@@ -48,7 +48,15 @@ echo date("M");
             echo "<td>".$no."</td>";
             echo "<td>".$mkl->kode_mk."</td>";
             echo "<td>".$mkl->nama_mk."</td>";
-            echo "<td>".$mkl->nip[0].", ".$mkl->nip[1]."</td>";
+            echo "<td>"; 
+            for ($nip = 0; $nip < 10; $nip++) {
+                if ($mkl->nip[$nip]==null) {
+                break;
+                }
+                echo $mkl->nip[$nip]." ";
+              }
+           echo "</td>";
+
             echo "<td><a href='v_admin_edit_mkl.php?id=".$mkl->_id."' >Edit</a> | 
                 <a href='v_admin_delete_mkl.php?id=".$mkl->_id."' >Delete</a></td>";
             echo "</tr>";
