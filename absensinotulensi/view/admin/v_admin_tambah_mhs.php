@@ -21,7 +21,6 @@
    }
 ?>
 
-
 <html>
 <head>
         <meta charset="utf-8">
@@ -37,56 +36,25 @@
       <div class="container">
          <br>
          <CENTER><h1>Tambah Data Mahasiswa</h1></CENTER>
-         <a href="v_admin_tampil_mhs.php" class="btn btn-primary">Kembali</a>
          <form method="POST">
             <div class="form-group">
-               <strong>NIM:</strong>
-               <input type="text" class="form-control" name="nim" required="" placeholder="xxxxxxxxx"><br>
-
-               <strong>Nama Mahasiswa:</strong>
-               <input type="text" class="form-control" name="nama" required="" placeholder="xxxxxxxxx"><br>
-               
-               <strong>Password:</strong>
-               <input type="text" class="form-control" name="password" required="" placeholder="xxxxxxxxx"><br>
-
-               <strong>JK:</strong>
-               <input type="text" class="form-control" name="jk" required="" placeholder="xxxxxxxxx"><br>
-
-               <strong>Kode Kelas:</strong>
-               <input type="text" class="form-control" name="kode_kelas" required="" placeholder="xxxxxxxxx"><br>
-
-               <strong>No Telp:</strong>
-               <input type="text" class="form-control" name="no_telp"  placeholder="xxxxxxxxx"><br>
-
-               <strong>Kampung:</strong>
-               <input type="text" class="form-control" name="kampung"  placeholder="xxxxxxxxx"><br>
-               
-               <strong>No Rumah:</strong>
-               <input type="text" class="form-control" name="no_rumah" required="" placeholder="xxxxxxxxx"><br>
-
-               <strong>RT:</strong>
-               <input type="text" class="form-control" name="rt" required="" placeholder="xxxxxxxxx"><br>
-
-               <strong>RW:</strong>
-               <input type="text" class="form-control" name="rw" required="" placeholder="xxxxxxxxx"><br>
-
-               <strong>Desa:</strong>
-               <input type="text" class="form-control" name="desa" required="" placeholder="xxxxxxxxx"><br>
-               
-               <strong>Kode Pos:</strong>
-               <input type="text" class="form-control" name="kode_pos" required="" placeholder="xxxxxxxxx"><br>
-
-               <strong>Kecamatan:</strong>
-               <input type="text" class="form-control" name="kecamatan" required="" placeholder="xxxxxxxxx"><br>
-
-               <strong>Kabupaten/Kota:</strong>
-               <input type="text" class="form-control" name="kabupaten_kota" required="" placeholder="xxxxxxxxx"><br>
-
-               <strong>Provinsi:</strong>
-               <input type="text" class="form-control" name="provinsi" required="" placeholder="xxxxxxxxx"><br>  
-
-               <strong>Email:</strong>
-               <input type="text" class="form-control" name="email" required="" placeholder="xxxxxxxxx"><br>
+               <input type="text" class="form-control" name="nim" required="" placeholder="Nomor Induk Mahasiswa"><br>
+               <input type="text" class="form-control" name="nama" required="" placeholder="Nama Lengkap"><br>
+               <input type="text" class="form-control" name="password" required="" placeholder="Password"><br>
+               <input type="text" class="form-control" name="jk" required="" placeholder="Jenis Kelamin"><br>
+               <input type="text" class="form-control" name="kode_kelas" required="" placeholder="Kode Kelas"><br>
+               <input type="text" class="form-control" name="no_telp"  placeholder="Nomor Telepon"><br>
+               <input type="text" class="form-control" name="kampung"  placeholder="Alamat Rumah"><br>
+               <input type="text" class="form-control" name="no_rumah" required="" placeholder="Nomor Rumah"><br>
+               <input type="text" class="form-control" name="rt" required="" placeholder="RT"><br>
+               <input type="text" class="form-control" name="rw" required="" placeholder="RW"><br>
+               <input type="text" class="form-control" name="desa" required="" placeholder="Desa/Kelurahan"><br>
+               <input type="text" class="form-control" name="kode_pos" required="" placeholder="Kode Pos"><br>
+               <input type="text" class="form-control" name="kecamatan" required="" placeholder="Kecamatan"><br>
+               <input type="text" class="form-control" name="kabupaten_kota" required="" placeholder="Kabupaten/Kota"><br>
+               <input type="text" class="form-control" name="provinsi" required="" placeholder="Provinsi"><br>  
+               <input type="text" class="form-control" name="email" required="" placeholder="email"><br>
+               <a href="v_admin_tampil_mhs.php" class="btn btn-primary">Kembali</a>
                <button type="submit" name="submit" class="btn btn-success">Tambah</button>
             </div>
          </form>
