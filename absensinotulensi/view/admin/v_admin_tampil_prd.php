@@ -29,8 +29,8 @@ $no = 1;
                     'as'=> "ProdiJurusan"
         )],
         ['$replaceRoot'=>(object)array('newRoot'=>(object)array('$mergeObjects'=>array((object)
-        array('$arrayElemAt'=>array('$jurusanProdi',0)),'$$ROOT')))],
-       ['$project'=>(object)array('jurusanProdi'=>0)]
+        array('$arrayElemAt'=>array('$ProdiJurusan',0)),'$$ROOT')))],
+       ['$project'=>(object)array('{ProdiJurusan}'=>0)]
         ]);
         //$prodi = $collection ->prodi->find([]);
 
@@ -38,7 +38,7 @@ $no = 1;
             echo "<tr>";
             echo "<td>".$no."</td>";
             echo "<td>".$prd->kode_prodi."</td>";
-            echo "<td>".$prd->nama_prodi."</td>";
+            echo "<td>".$prd->nama_prodi  ."</td>";
             echo "<td>".$prd->nama_jurusan."</td>";
             echo "<td><a href='v_admin_edit_prd.php?id=".$prd->_id."' >Edit</a> | 
                 <a href='v_admin_delete_prd.php?id=".$prd->_id."' >Delete</a></td>";
