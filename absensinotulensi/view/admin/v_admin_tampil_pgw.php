@@ -21,7 +21,7 @@ error_reporting(0);
             <th>No Telp</th>
             <th>Alamat</th>
             <th>Email</th>
-            <th>Kode Kelas</th>
+            <th>Nama Kelas</th>
             <th>Kode Mata Kuliah</th>
             <th>Aksi</th>
 
@@ -31,12 +31,29 @@ error_reporting(0);
         
        # $arai = $collection ->inventory->aggregate({$project=>{colors=>{$size=>array('$colors')}}});
         
+       $dosen1= $collection->pegawai->aggregate([
+        ['$lookup'=>(object)array(
+                    'from'=> "kelas",
+                    'localField'=> "kode_kelas",    
+                    'foreignField'=> "kode_kelas",  
+                    'as'=> "PegawaiKelas"
+        )],
+
+        ['$lookup'=>(object)array(
+                    'from'=> "matakuliah",
+                    'localField'=> "kode_mk",    
+                    'foreignField'=> "kode_mk",  
+                    'as'=> "PegawaiMatkul"
+        )],
         
+       ['$match'=>(object)array('jabatan'=>'D')],
+        ]); 
+
        
-       $dosen = $collection ->pegawai->find(['jabatan'=>'D']);
+       //$dosen1 = $collection ->pegawai->find(['jabatan'=>'D']);
 
         
-        foreach ($dosen as $dsn){
+        foreach ($dosen1 as $dsn){
             echo "<tr>";
             echo "<td>".$nodsn."</td>";
             echo "<td>".$dsn->nip."</td>";
@@ -50,7 +67,7 @@ error_reporting(0);
                 if ($dsn->kode_kelas[$kdk]==null) {
                 break;
                 }
-                echo $dsn->kode_kelas[$kdk]." ";
+                echo $dsn->PegawaiKelas[$kdk]->nama_kelas."<br>";
               }
            echo "</td>";
 
@@ -59,7 +76,7 @@ error_reporting(0);
                 if ($dsn->kode_mk[$x]==null) {
                break;
                 }
-                echo $dsn->kode_mk[$x]." ";
+                echo $dsn->PegawaiMatkul[$x]->nama_mk."<br>";
               }
            echo "</td>";
 
@@ -96,8 +113,9 @@ error_reporting(0);
         
        # $arai = $collection ->inventory->aggregate({$project=>{colors=>{$size=>array('$colors')}}});
         
-        $dosen = $collection ->pegawai->find(['jabatan'=>'A']);
-
+       $dosen= $collection->pegawai->aggregate([
+        ['$match'=>(object)array('jabatan'=>'A')],
+        ]); 
         
         foreach ($dosen as $dsn){
             echo "<tr>";
