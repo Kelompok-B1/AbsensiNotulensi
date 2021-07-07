@@ -44,10 +44,7 @@ $no = 1;
                     <th id = "action" class = "active">Aksi</th>
                 </tr>
             </thead>
-            <tbody class = "pagination-container"></tbody>
-        </table>
-
-        <?php 
+            <?php 
         $mahasiswa = $collection ->mahasiswa->find([]);
 
         foreach ($mahasiswa as $mhs){
@@ -68,6 +65,10 @@ $no = 1;
             $no +=1;
         }
     ?>
+            <tbody class = "pagination-container"></tbody>
+        </table>
+
+       
     <div class = "pagination-nav"></div>
     </div>
  </div>
