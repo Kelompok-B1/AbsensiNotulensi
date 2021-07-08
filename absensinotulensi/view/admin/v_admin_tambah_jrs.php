@@ -6,26 +6,16 @@
   # -1 MAX , 1 MIN
   #$sequence_id_jurusan = $collection ->jurusan->find([],['limit'=>1,'sort'=>['kode_jurusan'=>-1]]);
   $sequence_id_jurusan = $collection ->jurusan->find([],['limit'=>1,'sort'=>['kode_jurusan'=>-1]]);
- 
-
-
    if(isset($_POST['submit'])){
-      
       $insertOneResult = $collection->jurusan->insertOne([
           'kode_jurusan' => $_POST['kode_jurusan'],
           'nama_jurusan' => $_POST['nama_jurusan']
-        
-
-
       ]);
-    
       header("Location: v_admin_tampil_jrs.php");
    }
 ?>
-
-
 <html>
-<head>
+   <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -39,7 +29,6 @@
       <div class="container">
          <br>
          <CENTER><h1>Tambah Data Jurusan</h1></CENTER>
-         <a href="v_admin_tampil_mhs.php" class="btn btn-primary">Kembali</a>
          <form method="POST">
             <div class="form-group">
                <strong>Kode Jurusan:</strong>
@@ -53,14 +42,10 @@
                         $sidjrsn = $huruf . sprintf("%04s", $urutan);
                         echo $sidjrsn;
                       }
-               ?>" 
-               
+               ?>"       
                class="form-control" name="kode_jurusan" readonly><br>
-
-               <strong>Nama Jurusan:</strong>
-               <input type="text" class="form-control" name="nama_jurusan" required="" placeholder="xxxxxxxxx"><br>
-
-               
+               <input type="text" class="form-control" name="nama_jurusan" required="" placeholder="Nama Jurusan"><br>
+               <a href="v_admin_tampil_mhs.php" class="btn btn-primary">Kembali</a>
                <button type="submit" name="submit" class="btn btn-success">Tambah</button>
             </div>
          </form>
