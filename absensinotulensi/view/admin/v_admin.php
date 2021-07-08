@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Absensi dan Notulensi</title>
+        <title>Sistem Absensi dan Notulensi</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
@@ -50,7 +50,7 @@
                 </nav>
                 <!-- Page content-->
                 <div class="container-fluid">
-                    <h1 class="mt-4" align=center>Selamat Datang Admin</h1>
+                    <h2 class="mt-4" align=center>Selamat Datang Admin</h2>
                 </div>
             </div>
         </div>
