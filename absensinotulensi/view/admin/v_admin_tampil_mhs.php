@@ -9,6 +9,7 @@ $no = 1;
     <form class = "post-list">
         <input type = "hidden" value = "" />
     </form>
+    <h3 align=center><b>Mahasiswa</b></h3><br>
     <a href="v_admin.php" type = "submit" class = "btn btn-primary post_search_submit">Kembali</a>
     <a href="v_admin_tambah_mhs.php" type="submit" name="submit" class="btn btn-success">Tambah Data Baru</a><br/><br/>
     <article class="navbar-form navbar-left ml-b">
@@ -45,30 +46,28 @@ $no = 1;
                 </tr>
             </thead>
             <?php 
-        $mahasiswa = $collection ->mahasiswa->find([]);
+            $mahasiswa = $collection ->mahasiswa->find([]);
 
-        foreach ($mahasiswa as $mhs){
-            echo "<tr>";
-            echo "<td>".$no."</td>";
-            echo "<td>".$mhs->nim."</td>";
-            echo "<td>".$mhs->nama_mhs."</td>";
-            echo "<td>".$mhs->jk."</td>";
-            echo "<td>".$mhs->kode_kelas."</td>";
-            echo "<td>".$mhs->no_telp."</td>";
-            echo "<td>".$mhs->alamat->kampung." ".$mhs->alamat->no_rumah."</td>";
-            
-            echo "<td>".$mhs->email."</td>";
-            echo "<td><a href='v_admin_edit_mhs.php?id=".$mhs->_id."'  >Ubah</a> | 
-                <a href='v_admin_delete_mhs.php?id=".$mhs->_id."' >Hapus</a></td>";
-            echo "</tr>";
-            
-            $no +=1;
-        }
-    ?>
-            <tbody class = "pagination-container"></tbody>
+            foreach ($mahasiswa as $mhs){
+                echo "<tr>";
+                echo "<td>".$no."</td>";
+                echo "<td>".$mhs->nim."</td>";
+                echo "<td>".$mhs->nama_mhs."</td>";
+                echo "<td>".$mhs->jk."</td>";
+                echo "<td>".$mhs->kode_kelas."</td>";
+                echo "<td>".$mhs->no_telp."</td>";
+                echo "<td>".$mhs->alamat->kampung." ".$mhs->alamat->no_rumah."</td>";
+                
+                echo "<td>".$mhs->email."</td>";
+                echo "<td><a href='v_admin_edit_mhs.php?id=".$mhs->_id."' >Ubah</a> | 
+                    <a href='v_admin_delete_mhs.php?id=".$mhs->_id."' >Hapus</a></td>";
+                echo "</tr>";
+                
+                $no +=1;
+            }
+            ?>
+                <tbody class = "pagination-container"></tbody>
         </table>
-
-       
-    <div class = "pagination-nav"></div>
+        <div class = "pagination-nav"></div>
     </div>
- </div>
+</div>
