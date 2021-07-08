@@ -9,7 +9,7 @@ $no = 1;
     <form class = "post-list">
         <input type = "hidden" value = "" />
     </form>
-    <h3 align=center><b>Mahasiswa</b></h3><br>
+    <h3 align=center><b>Data Mahasiswa</b></h3><br>
     <a href="v_admin.php" type = "submit" class = "btn btn-primary post_search_submit">Kembali</a>
     <a href="v_admin_tambah_mhs.php" type="submit" name="submit" class="btn btn-success">Tambah Data Baru</a><br/><br/>
     <article class="navbar-form navbar-left ml-b">
