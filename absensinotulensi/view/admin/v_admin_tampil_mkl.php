@@ -4,38 +4,48 @@ require '../../model/connect.php';
 $no = 1;
 
 error_reporting(0);
-
-
-    /* Custom document class that stores a UTCDateTime and time zone and also
-     * implements the UTCDateTime interface for portability. */
-   
-
-
-
 ?>
-<?php
-$tanggal= mktime(date("m"),date("d"),date("Y"));
-
-echo "Tanggal :".date("Y-m-d", $tanggal) ;
-date_default_timezone_set('Asia/Jakarta');
-$jam=date("H:i:s");
-echo " Jam :".$jam ."\n";
-
-//echo date("m");
-
-?>  
 <html>
-    <head></head>
+    <head>
+        <link rel="stylesheet" type="text/css" media="screen" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css">
+    </head>
+    <?php require_once('header.php'); ?>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <?php
+        $tanggal= mktime(date("m"),date("d"),date("Y"));
+
+        echo "Tanggal: ".date("Y-m-d", $tanggal) ;
+        date_default_timezone_set('Asia/Jakarta');
+        $jam=date("H:i:s");
+        echo " Jam: ".$jam ."\n";
+
+    ?> 
+    <div class="container">
+        <form class = "post-list">
+            <input type = "hidden" value = "" />
+        </form>
+        <h3 align=center><b>Data Mata Kuliah</b></h3><br>
+        <a href="v_admin.php" type = "submit" class = "btn btn-primary post_search_submit">Kembali</a>
+        <a href="v_admin_tambah_mkl.php" type="submit" name="submit" class="btn btn-success">Tambah Data Baru</a><br/><br/>
+ 
     <body>
-    <a href="v_admin_tambah_mkl.php">Add New Data</a><br/><br/>
-    <table border="1">
-        <tr>
-            <th>No</th>
-            <th>Kode Mata Kuliah</th>
-            <th>Nama Mata Kuliah</th>
-    
-            <th>Aksi</th>
-        </tr>
+    <div class="container">
+            <table id="example" class="table table-striped table-bordered">
+                <thead>
+                    <th>No</th>
+                    <th>Kode Mata Kuliah</th>
+                    <th>Nama Mata Kuliah</th>
+                    <th>Aksi</th>
+                </thead>
+            <tbody>
     
     <?php 
         
@@ -59,10 +69,17 @@ echo " Jam :".$jam ."\n";
 
      
     ?>
-    <?php
-      
-    ?>
-    </table>
-    <a href="v_admin.php">Back</a><br/><br/>
+     </tbody>
+                <tbody class = "pagination-container"></tbody>
+            </table>
+            <div class = "pagination-nav"></div>
+        </div>
+
+        <script>
+        $(document).ready(function() {
+            $('#example').DataTable();
+        } );
+
+        </script>
     </body>
 </html>

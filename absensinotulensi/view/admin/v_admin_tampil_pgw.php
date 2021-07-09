@@ -8,26 +8,44 @@ error_reporting(0);
 ?>
 
 <html>
-    <head></head>
-    <body>
-    <a href="v_admin_tambah_dsn.php">Add New Data Dosen</a><br/>
-    <table border="1">
-    <h1>Data Dosen</h1>
-        <tr>
-            <th>No</th>
-            <th>NIP</th>
-            <th>Nama Dosen</th>
-            <th>JK</th>
-            <th>No Telp</th>
-            <th>Alamat</th>
-            <th>Email</th>
-            <th>Nama Kelas</th>
-            <th>Kode Mata Kuliah</th>
-            <th>Aksi</th>
-
-        </tr>
-     
-    <?php 
+    <head>
+        <link rel="stylesheet" type="text/css" media="screen" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css">
+    </head>
+    <?php require_once('header.php'); ?>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="v_admin.php" type = "submit" class = "btn btn-primary post_search_submit">Kembali</a>
+    <div class="container">
+        <form class = "post-list">
+            <input type = "hidden" value = "" />
+        </form>
+        <h3 align=center><b>Data Dosen</b></h3><br>
+        <a href="v_admin_tambah_dsn.php" type="submit" name="submit" class="btn btn-success">Tambah Data Baru</a><br/><br/>
+        <body>
+        <br>
+        <div class="container">
+            <table id="example" class="table table-striped table-bordered">
+                <thead>
+                    <th>No</th>
+                    <th>NIP</th>
+                    <th>Nama Dosen</th>
+                    <th>JK</th>
+                    <th>No Telp</th>
+                    <th>Alamat</th>
+                    <th>Email</th>
+                    <th>Nama Kelas</th>
+                    <th>Kode Mata Kuliah</th>
+                    <th>Aksi</th>
+                </thead>
+            </tbody>
+            <?php 
         
        # $arai = $collection ->inventory->aggregate({$project=>{colors=>{$size=>array('$colors')}}});
         
@@ -88,25 +106,41 @@ error_reporting(0);
             $nodsn +=1;
             
         }
+            ?>
+            </tbody>
+                <tbody class = "pagination-container"></tbody>
+            </table>
+            <div class = "pagination-nav"></div>
+        </div>
 
-     
-    ?>
+        <script>
+        $(document).ready(function() {
+            $('#example').DataTable();
+        } );
 
+        </script>
     </table>
 
-    <br>
-    <a href="v_admin_tambah_adm.php">Add New Data Admin</a><br/>    
-    <table border="1">
-    <h1>Data Admin</h1>
-        <tr>
-            <th>No</th>
-            <th>NIP</th>
-            <th>Nama Dosen</th>
-            <th>JK</th>
-            <th>No Telp</th>
-            <th>Alamat</th>
-            <th>Email</th>
-            <th>Aksi</th>
+    <div class="container">
+        <form class = "post-list">
+            <input type = "hidden" value = "" />
+        </form>
+        <h3 align=center><b>Data Admin</b></h3><br>
+        <a href="v_admin_tambah_adm.php" type="submit" name="submit" class="btn btn-success">Tambah Data Baru</a><br/><br/>
+
+        <body>
+        <br>
+        <div class="container">
+            <table id="example" class="table table-striped table-bordered">
+                <thead>
+                    <th>No</th>
+                    <th>NIP</th>
+                    <th>Nama Dosen</th>
+                    <th>JK</th>
+                    <th>No Telp</th>
+                    <th>Alamat</th>
+                    <th>Email</th>
+                    <th>Aksi</th>
         </tr>
     
     <?php 
@@ -139,7 +173,17 @@ error_reporting(0);
      
     ?>
 
+    </tbody>
+                <tbody class = "pagination-container"></tbody>
+            </table>
+            <div class = "pagination-nav"></div>
+        </div>
+
+        <script>
+        $(document).ready(function() {
+            $('#example').DataTable();
+        } );
+
+        </script>
+
     </table>
-    <a href="v_admin.php">Kembali</a><br/>
-    </body>
-</html>

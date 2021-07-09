@@ -1,3 +1,10 @@
+<?php require_once('header.php'); ?>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;
+<a href="v_admin_tampil_mhs.php" class="btn btn-primary">Kembali</a>
 <?php 
    if(isset($_POST['submit'])){
       require '../../model/connect.php';
@@ -50,7 +57,6 @@
                <input type="text" class="form-control" name="kabupaten_kota" required="" placeholder="Kabupaten/Kota"><br>
                <input type="text" class="form-control" name="provinsi" required="" placeholder="Provinsi"><br>  
                <input type="text" class="form-control" name="email" required="" placeholder="email"><br>
-               <a href="v_admin_tampil_mhs.php" class="btn btn-primary">Kembali</a>
                <button type="submit" name="submit" class="btn btn-success">Tambah</button>
             </div>
          </form>

@@ -1,3 +1,10 @@
+<?php require_once('header.php'); ?>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;
+<a href="v_admin_tampil_mkl.php" class="btn btn-primary">Kembali</a>
 <?php 
    require '../../model/connect.php';
    require '../../vendor/autoload.php';
@@ -8,9 +15,6 @@
       $insertOneResult = $collection->matakuliah->insertOne([
           'kode_mk' => $_POST['kode_mk'],
           'nama_mk' => $_POST['nama_mk'],
-          
-
-
       ]);
     
       header("Location: v_admin_tampil_mkl.php");
@@ -33,7 +37,6 @@
       <div class="container">
          <br>
          <CENTER><h1>Tambah Data Mata Kuliah</h1></CENTER>
-         <a href="v_admin_tampil_mkl.php" class="btn btn-primary">Kembali</a>
          <form method="POST">
             <div class="form-group">
                <strong>Kode Mata Kuliah:</strong>
@@ -51,8 +54,7 @@
                
                name="kode_mk" readonly><br>
 
-               <strong>Nama Mata Kuliah:</strong>
-               <input type="text" class="form-control" name="nama_mk" required="" placeholder="xxxxxxxxx"><br>
+               <input type="text" class="form-control" name="nama_mk" required="" placeholder="Nama Mata Kuliah"><br>
                 
                <button type="submit" name="submit" class="btn btn-success">Tambah</button>
             </div>
