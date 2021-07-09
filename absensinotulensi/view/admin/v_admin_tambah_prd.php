@@ -1,5 +1,11 @@
+<?php require_once('header.php'); ?>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;
+<a href="v_admin_tampil_prd.php" class="btn btn-primary">Kembali</a>
 <?php 
-
    require '../../model/connect.php';
    require '../../vendor/autoload.php';
    #kode otomatis untuk prodi
@@ -34,7 +40,6 @@
       <div class="container">
          <br>
          <CENTER><h1>Tambah Data Prodi</h1></CENTER>
-         <a href="v_admin_tampil_mhs.php" class="btn btn-primary">Kembali</a>
          <form method="POST">
             <div class="form-group">
                <strong>Kode Prodi:</strong>
@@ -49,13 +54,12 @@
                         echo $sidprd;
                       }
                ?>"
-                class="form-control" name="kode_prodi" required="" readonly><br>
+            
+               class="form-control" name="kode_prodi" required="" readonly><br>
 
-               <strong>Nama Prodi:</strong>
-               <input type="text" class="form-control" name="nama_prodi" required="" placeholder="xxxxxxxxx"><br>
+               <input type="text" class="form-control" name="nama_prodi" required="" placeholder="Nama Prodi"><br>
                 
-               <strong>Kode Jurusan:</strong>
-               <input type="text" class="form-control" name="kode_jurusan" required="" placeholder="xxxxxxxxx"><br>
+               <input type="text" class="form-control" name="kode_jurusan" required="" placeholder="Kode Jurusan"><br>
                
                <button type="submit" name="submit" class="btn btn-success">Tambah</button>
             </div>

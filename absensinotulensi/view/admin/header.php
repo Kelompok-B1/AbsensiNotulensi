@@ -16,7 +16,7 @@
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index.php">Absensi dan Notulensi</a>
+                    <!-- <a class="navbar-brand" href="#" >Absensi dan Notulensi</a> -->
                 </div>
             </div>
         </nav>

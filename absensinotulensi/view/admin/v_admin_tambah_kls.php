@@ -1,3 +1,10 @@
+<?php require_once('header.php'); ?>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;
+<a href="v_admin_tampil_kls.php" class="btn btn-primary">Kembali</a>
 <?php 
      require '../../model/connect.php';  
      require '../../vendor/autoload.php';
@@ -33,7 +40,6 @@
       <div class="container">
          <br>
          <CENTER><h1>Tambah Data Kelas</h1></CENTER>
-         <a href="v_admin_tampil_kls.php" class="btn btn-primary">Kembali</a>
          <form method="POST">
             <div class="form-group">
                <strong>Kode Kelas:</strong>
@@ -50,11 +56,9 @@
                ?>"
                name="kode_kelas" readonly><br>
 
-               <strong>Nama Kelas:</strong>
-               <input type="text" class="form-control" name="nama_kelas" required="" placeholder="xxxxxxxxx"><br>
+               <input type="text" class="form-control" name="nama_kelas" required="" placeholder="Nama Kelas"><br>
                 
-               <strong>Kode Prodi:</strong>
-               <input type="text" class="form-control" name="kode_prodi" required="" placeholder="xxxxxxxxx"><br>
+               <input type="text" class="form-control" name="kode_prodi" required="" placeholder="Kode Prodi"><br>
                
                <button type="submit" name="submit" class="btn btn-success">Tambah</button>
             </div>

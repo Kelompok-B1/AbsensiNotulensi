@@ -1,3 +1,10 @@
+<?php require_once('header.php'); ?>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;
+<a href="v_admin_tampil_jrs.php" type = "submit" class = "btn btn-primary post_search_submit">Kembali</a>
 <?php 
    #kode otomatis untuk jurusan
    require '../../vendor/autoload.php';
@@ -45,7 +52,6 @@
                ?>"       
                class="form-control" name="kode_jurusan" readonly><br>
                <input type="text" class="form-control" name="nama_jurusan" required="" placeholder="Nama Jurusan"><br>
-               <a href="v_admin_tampil_mhs.php" class="btn btn-primary">Kembali</a>
                <button type="submit" name="submit" class="btn btn-success">Tambah</button>
             </div>
          </form>
