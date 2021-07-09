@@ -27,9 +27,10 @@ $tgl = date("Y-m-d H:i:s");
 $first_date = new DateTime($tgl);
 $second_date = new DateTime("2021-07-06 12:43:00");
 
-$difference = $first_date->diff($second_date);
+ $difference = $first_date->diff($second_date);
 
-#echo format_interval($difference)->$interval->m;
+
+ echo format_interval($difference);
 
 
 
