@@ -21,14 +21,13 @@ error_reporting(0);
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <body>
     <a href="v_admin.php" type = "submit" class = "btn btn-primary post_search_submit">Kembali</a>
     <div class="container">
-        <form class = "post-list">
-            <input type = "hidden" value = "" />
-        </form>
-        <h3 align=center><b>Data Dosen</b></h3><br>
+    
+        <h3 align=center><b>Data Dosen</b></h3>
         <a href="v_admin_tambah_dsn.php" type="submit" name="submit" class="btn btn-success">Tambah Data Baru</a><br/><br/>
-        <body>
+    
         <br>
         <div class="container">
             <table id="example" class="table table-striped table-bordered">
@@ -43,8 +42,8 @@ error_reporting(0);
                     <th>Nama Kelas</th>
                     <th>Kode Mata Kuliah</th>
                     <th>Aksi</th>
-                </thead>
-            </tbody>
+                </thead>        
+                <tbody>
             <?php 
         
        # $arai = $collection ->inventory->aggregate({$project=>{colors=>{$size=>array('$colors')}}});
@@ -108,42 +107,32 @@ error_reporting(0);
         }
             ?>
             </tbody>
-                <tbody class = "pagination-container"></tbody>
-            </table>
-            <div class = "pagination-nav"></div>
-        </div>
-
-        <script>
-        $(document).ready(function() {
-            $('#example').DataTable();
-        } );
-
-        </script>
-    </table>
-
-    <div class="container">
-        <form class = "post-list">
-            <input type = "hidden" value = "" />
-        </form>
-        <h3 align=center><b>Data Admin</b></h3><br>
+               
+        </table>
+       
+        
+        
+        <h3 align=center><b>Data Admin</b></h3>
         <a href="v_admin_tambah_adm.php" type="submit" name="submit" class="btn btn-success">Tambah Data Baru</a><br/><br/>
 
-        <body>
+     
         <br>
-        <div class="container">
-            <table id="example" class="table table-striped table-bordered">
+   
+            <table id="example2" class="table table-striped table-bordered">
                 <thead>
                     <th>No</th>
                     <th>NIP</th>
-                    <th>Nama Dosen</th>
+                    <th>Nama Admin</th>
                     <th>JK</th>
                     <th>No Telp</th>
                     <th>Alamat</th>
                     <th>Email</th>
                     <th>Aksi</th>
-        </tr>
+               </thead>
+               <tbody>
+     
     
-    <?php 
+        <?php 
         
        # $arai = $collection ->inventory->aggregate({$project=>{colors=>{$size=>array('$colors')}}});
         
@@ -171,19 +160,25 @@ error_reporting(0);
         }
 
      
-    ?>
+        ?>
 
-    </tbody>
-                <tbody class = "pagination-container"></tbody>
-            </table>
-            <div class = "pagination-nav"></div>
-        </div>
+            </tbody>
+        </table>
+          
+   </div>
 
         <script>
+          
         $(document).ready(function() {
             $('#example').DataTable();
         } );
 
+   
+        $(document).ready(function() {
+            $('#example2').DataTable();
+        } );
+
         </script>
 
-    </table>
+    </body>
+    </html>

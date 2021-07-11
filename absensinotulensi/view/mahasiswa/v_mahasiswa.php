@@ -1,3 +1,15 @@
+
+<?php
+  //memulai session yang disimpan pada browser
+  session_start();
+  if($_SESSION['status_login']!="sudah_login"){
+    header("location:../login_mahasiswa.php?pesan=belum_login");
+}
+    
+  //cek apakah sesuai status sudah login? kalau belum akan kembali ke form login
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -31,12 +43,12 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $_SESSION['nama'];?></a>
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="#!">Action</a>
                                         <a class="dropdown-item" href="#!">Another action</a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#!">Something else here</a>
+                                        <a class="dropdown-item" href="../logout_mahasiswa.php">Logout</a>
                                     </div>
                                 </li>
                             </ul>
@@ -45,7 +57,7 @@
                 </nav>
                 <!-- Page content-->
                 <div class="container-fluid">
-                    <h2 class="mt-4" align=center>Selamat Datang Mahasiswa</h2>
+                    <h2 class="mt-4" align=center>Selamat Datang <?php echo $_SESSION['nama'];?></h2>
                 </div>
             </div>
         </div>

@@ -3,9 +3,10 @@
    require '../../vendor/autoload.php';
    #kode otomatsi untuk pegawai
    $sequence_id_pegawai = $collection ->pegawai->find([],['limit'=>1,'sort'=>['nip'=>-1]]);
-
+ 
    if(isset($_POST['submit'])){
-      
+      $has_errors = false; 
+   try{
       $insertOneResult = $collection->pegawai->insertOne([
           'nip' => $_POST['nip'],
           'nama_pgw' => $_POST['nama_pgw'],
@@ -19,9 +20,26 @@
           'jabatan' => 'A',
           'email' => $_POST['email'],
           'akun' => (object)array('username' => $_POST['nip'],'password' => $_POST['password'])
-      ]);
+      ]);}
+      catch (exception $e){
+         $has_errors = true;
+      }
     
-      header("Location: v_admin_tampil_pgw.php");
+     // header("Location: v_admin_tampil_pgw.php");
+     if ($has_errors==false){
+      echo"
+         <div class='alert alert-success' role='alert'>
+            Data Admin Berhasil Ditambahkan.<a href='v_admin_tampil_pgw.php' class='alert-link'>Klik Disini Untuk Kembali Ke Data Admin</a>.
+         </div>
+      ";
+      
+     }else if($has_errors!==false){
+      echo"
+      <div class='alert alert-danger' role='alert'>
+          <b>Data Admin Tidak Berhasil Ditambahkan</b>.Mohon Cek Kembali Pengisian Data Agar Tidak Ada Yang Duplikat</a>.
+      </div>
+      ";
+         }
    }
 ?>
 
@@ -108,4 +126,8 @@
          </form>
       </div>
    </body>
+
+   <script>
+     
+   </script>
 </html>
