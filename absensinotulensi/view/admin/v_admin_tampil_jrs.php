@@ -10,6 +10,11 @@ $no = 1;
         <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/contact.js"></script>
     </head>
     <?php require_once('header.php'); ?>
     <div class="container">
@@ -18,7 +23,7 @@ $no = 1;
         </form>
         <h3 align=center><b>Data Jurusan</b></h3><br>
         <a href="v_admin.php" type = "submit" class = "btn btn-primary post_search_submit">Kembali</a>
-        <a href="v_admin_tambah_jrs.php" type="submit" name="submit" class="btn btn-success">Tambah Data Baru</a><br/><br/>
+        <a href="v_admin_tambah_jrs.php" type="submit" name="submit" class="btn btn-success"  >Tambah Data Baru</a><br/><br/>
 
         <body>
         <br>

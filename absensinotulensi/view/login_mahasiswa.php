@@ -1,52 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title></title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-        <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
-        
-   </head>
-
-<style>
-  .pilihlogin{
-    width: 500px;
-    height: 250px;
-    margin-left :500px;
-    margin-top: 280px;
-  
-    outline-style:solid;
-    outline-color:blue;
-  }
- .form-group{
-    width:300px;
-    margin-left:auto;
-    margin-right:auto;
-}
-button {
-    width:300px;
-    margin-left:100px;
-}
-</style>
-<body>
-    <div class="pilihlogin">
-      <br>
-         <h4 align="center"> Login Mahasiswa </h4>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sistem Absensi dan Notulensi</title>
+    <link rel="icon" type="image/x-icon" href="../view/assets/favicon.ico" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+</head>
+<b  <div class="container">
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card card-signin my-5">
+          <div class="card-body">
+            <h4 class="card-title text-center">Sign In</h4><p>
+            <form class="form-signin">
+              <div class="form-label-group">
          <form method="POST" action="proses_login_mahasiswa.php">
-            <div class="form-group">
-                <label>Username</label>
-                <input type="text" class="form-control" name="username" aria-describedby="emailHelp" placeholder="Masukkan Username">
+         <div class="form-group">
+                <input type="text" class="form-control" name="username" aria-describedby="emailHelp" placeholder="Username" required autofocus>
                </div>
             <div class="form-group">
-                <label>Password</label>
-                <input type="password" class="form-control" name="password" placeholder="Masukkan Password">
-           
+                <input type="password" class="form-control" name="password" placeholder="Password" required>
             </div>
-    
-                <button type="submit" name="login" class="btn btn-primary">Login</button>
+                <a href= "landingpage.php" button type="submit" name="login" class="btn btn-warning" style="width:49%;">Back</button></a>
+                <button type="submit" name="login" class="btn btn-primary" style="width:49%;">Login</button>
                 <?php 
                     if(isset($_GET['pesan'])){
                         if($_GET['pesan'] == "gagal"){
@@ -65,8 +46,6 @@ button {
     </div>
 
 </body>
-</html>
-
 
 
 
