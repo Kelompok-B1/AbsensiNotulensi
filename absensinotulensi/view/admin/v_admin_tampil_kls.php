@@ -3,67 +3,116 @@ require '../../vendor/autoload.php';
 require '../../model/connect.php';
 $no = 1;
 ?>
-<html>
+<?php
+  //memulai session yang disimpan pada browser
+  session_start();
+  if($_SESSION['status_login']!="sudah_login"){
+    header("location:../login_pegawai.php?pesan=belum_login");
+}
+    
+  //cek apakah sesuai status sudah login? kalau belum akan kembali ke form login
+
+?>
+<!DOCTYPE html>
+<html lang="en">
     <head>
-        <link rel="stylesheet" type="text/css" media="screen" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
-        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-        <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css">
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Sistem Absensi dan Notulensi</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="../css/styles.css" rel="stylesheet" />
     </head>
-    <?php require_once('header.php'); ?>
-    <div class="container">
-        <form class = "post-list">
-            <input type = "hidden" value = "" />
-        </form>
-        <h3 align=center><b>Data Kelas</b></h3><br>
-        <a href="v_admin.php" type = "submit" class = "btn btn-primary post_search_submit">Kembali</a>
-        <a href="v_admin_tambah_kls.php" type="submit" name="submit" class="btn btn-success">Tambah Data Baru</a><br/><br/>
     <body>
-    <div class="container">
-        <table id="example" class="table table-striped table-bordered">
-            <thead>
-                <th>No</th>
-                <th>Kode Kelas</th>
-                <th>Nama Kelas</th>
-                <th>Nama Prodi</th>
-                <th>Aksi</th>
-            </thead>
-            <tbody> 
-            <?php 
-        
-       # $arai = $collection ->inventory->aggregate({$project=>{colors=>{$size=>array('$colors')}}});
-       $kelas1= $collection->kelas->aggregate([
-        ['$lookup'=>(object)array(
-                    'from'=> "prodi",
-                    'localField'=> "kode_prodi",    
-                    'foreignField'=> "kode_prodi",  
-                    'as'=> "KelasProdi"
-        )],
-        ['$replaceRoot'=>(object)array('newRoot'=>(object)array('$mergeObjects'=>array((object)
-        array('$arrayElemAt'=>array('$KelasProdi',0)),'$$ROOT')))],
-       ['$project'=>(object)array('KelasProdi'=>0)]
-        ]); 
+        <div class="d-flex" id="wrapper">
+            <!-- Sidebar-->
+            <div class="border-end bg-white" id="sidebar-wrapper">
+                <div class="sidebar-heading border-bottom bg-light">Absensi dan Notulensi</div>
+                <div class="list-group list-group-flush">
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="v_admin_tampil_jrs.php">Data Jurusan</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="v_admin_tampil_prd.php">Data Prodi</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="v_admin_tampil_kls.php">Data Kelas</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="v_admin_tampil_mkl.php">Data Mata Kuliah</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="v_admin_tampil_pgw.php">Data Pegawai</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="v_admin_tampil_mhs.php">Data Mahasiswa</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="v_admin_tampil_jda.php">Jadwal Absensi</a>
 
-        //$kelas = $collection ->kelas->find([]);
+                </div>
+            </div>
+            <!-- Page content wrapper-->
+            <div id="page-content-wrapper">
+                <!-- Top navigation-->
+                <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                    <div class="container-fluid">
+                        
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $_SESSION['nama'];?></a>
+                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="../logout_pegawai.php">Logout</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <div class="container">
+                    <form class = "post-list">
+                        <input type = "hidden" value = "" />
+                    </form>
+                    <br><a href="v_admin.php" type = "submit" class = "btn btn-primary post_search_submit">Beranda</a>
+                    <p><h3 align=center><b>Data Kelas</b></h3><br>
+                    
+                    <a href="v_admin_tambah_kls.php" type="submit" name="submit" class="btn btn-success"  >Tambah Data Baru</a><br/><br/>
+                    </div>
+                    <div class="container">
+                    <table id="example" class="table table-striped table-bordered">
+                        <thead>
+                            <th>No</th>
+                            <th>Kode Kelas</th>
+                            <th>Nama Kelas</th>
+                            <th>Nama Prodi</th>
+                            <th>Aksi</th>
+                        </thead>
+                        <tbody> 
+                        <?php 
+                    
+                # $arai = $collection ->inventory->aggregate({$project=>{colors=>{$size=>array('$colors')}}});
+                $kelas1= $collection->kelas->aggregate([
+                    ['$lookup'=>(object)array(
+                                'from'=> "prodi",
+                                'localField'=> "kode_prodi",    
+                                'foreignField'=> "kode_prodi",  
+                                'as'=> "KelasProdi"
+                    )],
+                    ['$replaceRoot'=>(object)array('newRoot'=>(object)array('$mergeObjects'=>array((object)
+                    array('$arrayElemAt'=>array('$KelasProdi',0)),'$$ROOT')))],
+                ['$project'=>(object)array('KelasProdi'=>0)]
+                    ]); 
 
-        foreach ($kelas1 as $kls){
-            echo "<tr>";
-            echo "<td>".$no."</td>";
-            echo "<td>".$kls->kode_kelas."</td>";
-            echo "<td>".$kls->nama_kelas."</td>";
-            echo "<td>".$kls->nama_prodi."</td>";
-            echo "<td><a href='v_admin_edit_kls.php?id=".$kls->_id."' >Edit</a> | 
-                <a href='v_admin_delete_kls.php?id=".$kls->_id."' >Delete</a></td>";
-            echo "</tr>";
-            
-            $no +=1;
-            
-        }
+                    //$kelas = $collection ->kelas->find([]);
 
-     
-    ?>
-     </tbody>
+                    foreach ($kelas1 as $kls){
+                        echo "<tr>";
+                        echo "<td>".$no."</td>";
+                        echo "<td>".$kls->kode_kelas."</td>";
+                        echo "<td>".$kls->nama_kelas."</td>";
+                        echo "<td>".$kls->nama_prodi."</td>";
+                        echo "<td><a href='v_admin_edit_kls.php?id=".$kls->_id."' >Edit</a> | 
+                            <a href='v_admin_delete_kls.php?id=".$kls->_id."' >Delete</a></td>";
+                        echo "</tr>";
+                        
+                        $no +=1;
+                        
+                    }
+                    ?>
+                </tbody>
                 <tbody class = "pagination-container"></tbody>
             </table>
             <div class = "pagination-nav"></div>
@@ -75,5 +124,12 @@ $no = 1;
         } );
 
         </script>
+            </div>
+        </div>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="../js/scripts.js"></script>
+        <?php require_once('footer.php'); ?>
     </body>
 </html>

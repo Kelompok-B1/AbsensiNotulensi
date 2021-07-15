@@ -25,8 +25,8 @@
                         <div class="form-group">
                             <input type="password" class="form-control" name="password" placeholder="Password" required>
                         </div>
-                            <a href= "../MainFrame/index.html" button type="submit" name="login" class="btn btn-warning" style="width:49%;">Back</button></a>
-                            <button type="submit" name="login" class="btn btn-primary" style="width:49%;">Login</button>
+                            <a href= "../MainFrame/index.html" button type="submit" name="login" class="btn btn-info" style="width:49%;">Home</button></a>
+                            <button type="submit" name="login" class="btn btn-success" style="width:49%;">Login</button>
                             <?php 
                                 if(isset($_GET['pesan'])){
                                     if($_GET['pesan'] == "gagal"){
