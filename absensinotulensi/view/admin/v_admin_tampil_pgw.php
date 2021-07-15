@@ -18,7 +18,7 @@ error_reporting(0);
 ?>
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+<head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
@@ -28,23 +28,18 @@ error_reporting(0);
         <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="../css/styles.css" rel="stylesheet" />
+
+        <link rel="stylesheet" type="text/css" media="screen" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
         <div class="d-flex" id="wrapper">
             <!-- Sidebar-->
-            <div class="border-end bg-white" id="sidebar-wrapper">
-                <div class="sidebar-heading border-bottom bg-light">Absensi dan Notulensi</div>
-                <div class="list-group list-group-flush">
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="v_admin_tampil_jrs.php">Data Jurusan</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="v_admin_tampil_prd.php">Data Prodi</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="v_admin_tampil_kls.php">Data Kelas</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="v_admin_tampil_mkl.php">Data Mata Kuliah</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="v_admin_tampil_pgw.php">Data Pegawai</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="v_admin_tampil_mhs.php">Data Mahasiswa</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="v_admin_tampil_jda.php">Jadwal Absensi</a>
-
-                </div>
-            </div>
+            <?php require_once('sidebar.php'); ?>
             <!-- Page content wrapper-->
             <div id="page-content-wrapper">
                 <!-- Top navigation-->
@@ -69,10 +64,10 @@ error_reporting(0);
                 <form class = "post-list">
                     <input type = "hidden" value = "" />
                 </form><br>
-                <a href="v_admin.php" type = "submit" class = "btn btn-primary post_search_submit">Beranda</a>
+                <a href="v_admin.php" type = "submit" class = "btn btn-primary post_search_submit"><i class="fa fa-reply"></i> Kembali Ke Beranda</a>
                 <p><h3 align=center><b>Data Dosen</b></h3><br>
                 
-                <a href="v_admin_tambah_dsn.php" type="submit" name="submit" class="btn btn-success"  >Tambah Data Baru</a><br/><br/>
+                <a href="v_admin_tambah_dsn.php" type="submit" name="submit" class="btn btn-success"  ><i class="fa fa-plus"></i> Tambah Data Baru</a><br/><br/>
                 </div>
         <div class="container">
             <table id="example" class="table table-striped table-bordered">
@@ -143,8 +138,9 @@ error_reporting(0);
            echo "</td>";
 
          
-            echo "<td><a href='v_admin_edit_dsn.php?id=".$dsn->_id."' >Edit</a> | 
-                <a href='v_admin_delete_dsn.php?id=".$dsn->_id."' >Delete</a></td>";
+            echo "<td><a href='v_admin_edit_dsn.php?id=".$dsn->_id."'class='btn btn-info' >
+            <i class='fa fa-pencil'></i> Edit</a> 
+                <a href='v_admin_delete_dsn.php?id=".$dsn->_id."' class='btn btn-danger'> <i class='fa fa-trash'></i> Delete</a></td>";
             echo "</tr>";
        
             $nodsn +=1;
@@ -158,7 +154,7 @@ error_reporting(0);
         
         <br>
         <h3 align=center><b>Data Admin</b></h3>
-        <a href="v_admin_tambah_adm.php" type="submit" name="submit" class="btn btn-success">Tambah Data Baru</a><br/><br/>
+        <a href="v_admin_tambah_adm.php" type="submit" name="submit" class="btn btn-success"><i class="fa fa-plus"></i> Tambah Data Baru</a><br/><br/>
 
      
         <br>
@@ -196,8 +192,9 @@ error_reporting(0);
             echo "<td>".$dsn->email."</td>";
         
          
-            echo "<td><a href='v_admin_edit_adm.php?id=".$dsn->_id."' >Edit</a> | 
-                <a href='v_admin_delete_adm.php?id=".$dsn->_id."' >Delete</a></td>";
+            echo "<td><a href='v_admin_edit_adm.php?id=".$dsn->_id."'class='btn btn-info' >
+            <i class='fa fa-pencil'></i> Edit</a> 
+                <a href='v_admin_delete_adm.php?id=".$dsn->_id."'class='btn btn-danger'> <i class='fa fa-trash'></i> Delete</a></td>";
             echo "</tr>";
        
             $noadm +=1;

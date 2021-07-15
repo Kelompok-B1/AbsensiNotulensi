@@ -15,7 +15,7 @@ $no = 1;
 ?>
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+<head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
@@ -25,23 +25,18 @@ $no = 1;
         <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="../css/styles.css" rel="stylesheet" />
+
+        <link rel="stylesheet" type="text/css" media="screen" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
         <div class="d-flex" id="wrapper">
             <!-- Sidebar-->
-            <div class="border-end bg-white" id="sidebar-wrapper">
-                <div class="sidebar-heading border-bottom bg-light">Absensi dan Notulensi</div>
-                <div class="list-group list-group-flush">
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="v_admin_tampil_jrs.php">Data Jurusan</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="v_admin_tampil_prd.php">Data Prodi</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="v_admin_tampil_kls.php">Data Kelas</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="v_admin_tampil_mkl.php">Data Mata Kuliah</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="v_admin_tampil_pgw.php">Data Pegawai</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="v_admin_tampil_mhs.php">Data Mahasiswa</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="v_admin_tampil_jda.php">Jadwal Absensi</a>
-
-                </div>
-            </div>
+            <?php require_once('sidebar.php'); ?>
             <!-- Page content wrapper-->
             <div id="page-content-wrapper">
                 <!-- Top navigation-->
@@ -66,56 +61,57 @@ $no = 1;
                     <form class = "post-list">
                         <input type = "hidden" value = "" />
                     </form>
-                    <br><a href="v_admin.php" type = "submit" class = "btn btn-primary post_search_submit">Beranda</a>
+                    <br><a href="v_admin.php" type = "submit" class = "btn btn-primary post_search_submit"><i class="fa fa-reply"></i> Kembali Ke Beranda</a>
                     <p><h3 align=center><b>Data Kelas</b></h3><br>
                     
-                    <a href="v_admin_tambah_kls.php" type="submit" name="submit" class="btn btn-success"  >Tambah Data Baru</a><br/><br/>
+                    <a href="v_admin_tambah_kls.php" type="submit" name="submit" class="btn btn-success"  ><i class="fa fa-plus"></i> Tambah Data Baru</a><br/><br/>
                     </div>
                     <div class="container">
-                    <table id="example" class="table table-striped table-bordered">
-                        <thead>
-                            <th>No</th>
-                            <th>Kode Kelas</th>
-                            <th>Nama Kelas</th>
-                            <th>Nama Prodi</th>
-                            <th>Aksi</th>
-                        </thead>
-                        <tbody> 
-                        <?php 
+                            <table id="example" class="table table-striped table-bordered">
+                                <thead>
+                                    <th>No</th>
+                                    <th>Kode Kelas</th>
+                                    <th>Nama Kelas</th>
+                                    <th>Nama Prodi</th>
+                                    <th>Aksi</th>
+                                </thead>
+                                <tbody> 
+                                <?php 
+                            
+                        # $arai = $collection ->inventory->aggregate({$project=>{colors=>{$size=>array('$colors')}}});
+                        $kelas1= $collection->kelas->aggregate([
+                            ['$lookup'=>(object)array(
+                                        'from'=> "prodi",
+                                        'localField'=> "kode_prodi",    
+                                        'foreignField'=> "kode_prodi",  
+                                        'as'=> "KelasProdi"
+                            )],
+                            ['$replaceRoot'=>(object)array('newRoot'=>(object)array('$mergeObjects'=>array((object)
+                            array('$arrayElemAt'=>array('$KelasProdi',0)),'$$ROOT')))],
+                        ['$project'=>(object)array('KelasProdi'=>0)]
+                            ]); 
+
+                            //$kelas = $collection ->kelas->find([]);
+
+                            foreach ($kelas1 as $kls){
+                                echo "<tr>";
+                                echo "<td>".$no."</td>";
+                                echo "<td>".$kls->kode_kelas."</td>";
+                                echo "<td>".$kls->nama_kelas."</td>";
+                                echo "<td>".$kls->nama_prodi."</td>";
+                                echo "<td><a href='v_admin_edit_kls.php?id=".$kls->_id."'class='btn btn-info' >
+                                <i class='fa fa-pencil'></i> Edit</a>   
+                                    <a href='v_admin_delete_kls.php?id=".$kls->_id."' class='btn btn-danger'> <i class='fa fa-trash'></i> Delete</a></td>";
+                                echo "</tr>";
+                                
+                                $no +=1;
+                                
+                            }
+                            ?>
+                        </tbody>
                     
-                # $arai = $collection ->inventory->aggregate({$project=>{colors=>{$size=>array('$colors')}}});
-                $kelas1= $collection->kelas->aggregate([
-                    ['$lookup'=>(object)array(
-                                'from'=> "prodi",
-                                'localField'=> "kode_prodi",    
-                                'foreignField'=> "kode_prodi",  
-                                'as'=> "KelasProdi"
-                    )],
-                    ['$replaceRoot'=>(object)array('newRoot'=>(object)array('$mergeObjects'=>array((object)
-                    array('$arrayElemAt'=>array('$KelasProdi',0)),'$$ROOT')))],
-                ['$project'=>(object)array('KelasProdi'=>0)]
-                    ]); 
-
-                    //$kelas = $collection ->kelas->find([]);
-
-                    foreach ($kelas1 as $kls){
-                        echo "<tr>";
-                        echo "<td>".$no."</td>";
-                        echo "<td>".$kls->kode_kelas."</td>";
-                        echo "<td>".$kls->nama_kelas."</td>";
-                        echo "<td>".$kls->nama_prodi."</td>";
-                        echo "<td><a href='v_admin_edit_kls.php?id=".$kls->_id."' >Edit</a> | 
-                            <a href='v_admin_delete_kls.php?id=".$kls->_id."' >Delete</a></td>";
-                        echo "</tr>";
-                        
-                        $no +=1;
-                        
-                    }
-                    ?>
-                </tbody>
-                <tbody class = "pagination-container"></tbody>
-            </table>
-            <div class = "pagination-nav"></div>
+                    </table>
+           
         </div>
 
         <script>

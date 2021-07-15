@@ -24,25 +24,13 @@
     <body>
         <div class="d-flex" id="wrapper">
             <!-- Sidebar-->
-            <div class="border-end bg-white" id="sidebar-wrapper">
-                <div class="sidebar-heading border-bottom bg-light">Absensi dan Notulensi</div>
-                <div class="list-group list-group-flush">
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="v_admin_tampil_jrs.php">Data Jurusan</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="v_admin_tampil_prd.php">Data Prodi</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="v_admin_tampil_kls.php">Data Kelas</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="v_admin_tampil_mkl.php">Data Mata Kuliah</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="v_admin_tampil_pgw.php">Data Pegawai</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="v_admin_tampil_mhs.php">Data Mahasiswa</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="v_admin_tampil_jda.php">Jadwal Absensi</a>
-
-                </div>
-            </div>
+            <?php require_once('sidebar.php'); ?>
             <!-- Page content wrapper-->
             <div id="page-content-wrapper">
                 <!-- Top navigation-->
                 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
                     <div class="container-fluid">
-                        
+                       
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
@@ -64,9 +52,11 @@
                 </div>
             </div>
         </div>
+        <script src="../js/scripts.js"></script>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
-        <script src="../js/scripts.js"></script>
+        
+        <?php require_once('footer.php'); ?>
     </body>
 </html>

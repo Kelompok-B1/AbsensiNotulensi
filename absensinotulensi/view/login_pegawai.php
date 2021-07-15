@@ -34,10 +34,10 @@
                             if(isset($_GET['pesan'])){
                                 if($_GET['pesan'] == "gagal"){
                                     echo"
-                                    <script>alert('Login gagal! Username dan Password Salah!')</script>;
+                                    <script>alert('Login gagal! Username dan Password Salah!')</script>
                                     ";
                                 }else if($_GET['pesan'] == "logout"){
-                                    echo " <script>alert('Anda Telah Berhasil Logout')</script>;";
+                                    echo " <script>alert('Anda Telah Berhasil Logout')</script>";
                                 }else if($_GET['pesan'] == "belum_login"){
                                 echo " <script>alert('Silahkan Login Terlebih Dahulu Untuk Masuk Ke Halaman Pegawai')</script>";
                             }
