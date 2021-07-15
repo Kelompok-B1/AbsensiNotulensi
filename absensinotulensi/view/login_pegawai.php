@@ -27,7 +27,7 @@
             <div class="form-group">
                 <input type="password" class="form-control" name="password" placeholder="Password" required>
             </div>
-                <a href= "landingpage.php" button type="submit" name="login" class="btn btn-warning" style="width:49%;">Back</button></a>
+                <a href= "../MainFrame/index.html" button type="submit" name="login" class="btn btn-warning" style="width:49%;">Back</button></a>
                 <button type="submit" name="login" class="btn btn-primary" style="width:49%;">Login</button>
                 <?php 
                     if(isset($_GET['pesan'])){
