@@ -2,6 +2,8 @@
 require '../../vendor/autoload.php';
 require '../../model/connect.php';
 $no = 1;
+
+error_reporting(0);
 ?>
 <?php
   //memulai session yang disimpan pada browser
@@ -15,7 +17,7 @@ $no = 1;
 ?>
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+<head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
@@ -41,7 +43,7 @@ $no = 1;
     <body>
         <div class="d-flex" id="wrapper">
             <!-- Sidebar-->
-                <?php require_once('sidebar.php'); ?>
+                 <?php require_once('sidebar.php'); ?>
             <!-- Page content wrapper-->
             <div id="page-content-wrapper">
                 <!-- Top navigation-->
@@ -62,31 +64,29 @@ $no = 1;
                         </div>
                     </div>
                 </nav>
-
                 <div class="container">
+                <form class = "post-list">
+                    <input type = "hidden" value = "" />
+                </form>
+                <br><a href="v_dosen.php" type = "submit" class = "btn btn-primary post_search_submit"><i class="fa fa-reply"></i> Kembali Ke Beranda</a>
+                <p><h3 align=center><b>Data Mata Kuliah</b></h3><br>
                 
-                <br> <a href="v_admin.php" type = "submit" class = "btn btn-primary post_search_submit"><i class="fa fa-reply"></i> Kembali Ke Beranda</a>
-                <p><h3 align=center><b>Data Jurusan</b></h3><br>
-               
-               <button type="button"  class="btn btn-success" data-toggle="modal" data-target="#exampleModal" ><i class="fa fa-plus"></i> Tambah Data Baru</button><br/><br/>
-                
-          
-   
+                             </div>
 
-                <!-- Modal Tambah Jurusan -->
-                    <?php 
-                    #kode otomatis untuk jurusan
+            <!-- Modal Tambah Mata Kuliah -->
+            <?php 
+                    #kode otomatis untuk prodi
                     require '../../vendor/autoload.php';
                     require '../../model/connect.php';
-                    # $sequence_id_jurusan = $collection->jurusan->find([])->sort(array('kode_jurusan'=>1));
-                    # -1 MAX , 1 MIN
-                    #$sequence_id_jurusan = $collection ->jurusan->find([],['limit'=>1,'sort'=>['kode_jurusan'=>-1]]);
-                    $sequence_id_jurusan = $collection ->jurusan->find([],['limit'=>1,'sort'=>['kode_jurusan'=>-1]]);
+                     #kode otomatsi untuk matakuliah
+                    $sequence_id_matakuliah = $collection ->matakuliah->find([],['limit'=>1,'sort'=>['kode_mk'=>-1]]);
                     if(isset($_POST['submit'])){
-                        $has_errors = false; 
-                    try{$insertOneResult = $collection->jurusan->insertOne([
-                            'kode_jurusan' => $_POST['kode_jurusan'],
-                            'nama_jurusan' => $_POST['nama_jurusan']
+                        $has_errors =false;
+                    try {$insertOneResult = $collection->matakuliah->insertOne([
+                        'kode_mk' => $_POST['kode_mk'],
+                        'nama_mk' => $_POST['nama_mk'],
+                  
+                  
                         ]);}
                     catch (exception $e){
                         $has_errors =true;
@@ -95,7 +95,7 @@ $no = 1;
                     if ($has_errors==false){
                         echo"
                         <div class='alert alert-success alert-dismissible fade show' role='alert'>
-                           <b>Data Jurusan Berhasil Ditambahkan</b>
+                           <b>Data Mata Kuliah Berhasil Ditambahkan</b>
                            <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                            <span aria-hidden='true'>&times;</span>
                          </button>
@@ -106,12 +106,16 @@ $no = 1;
                         
                        }else if($has_errors!==false){
                         echo"
-                        <div class='alert alert-danger' role='alert'>
-                            <b>Data Jurusan Tidak Berhasil Ditambahkan</b>.Mohon Cek Kembali Pengisian Data Agar Tidak Ada Yang Duplikat</a>.
+                        <div class='alert alert-danger'alert-dismissible fade show' role='alert'>
+                            <b>Data Mata Kuliah Tidak Berhasil Ditambahkan</b>.Mohon Cek Kembali Pengisian Data Agar Tidak Ada Yang Duplikat</a>.
+                            <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                            <span aria-hidden='true'>&times;</span>
+                          </button>
                         </div>
                         ";
                            }
-                    $sequence_id_jurusan = $collection ->jurusan->find([],['limit'=>1,'sort'=>['kode_jurusan'=>-1]]);
+                           $sequence_id_matakuliah = $collection ->matakuliah->find([],['limit'=>1,'sort'=>['kode_mk'=>-1]]);
+                   
                 
                     }
                     ?>
@@ -121,29 +125,33 @@ $no = 1;
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Tambah Data Jurusan</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Tambah Data Mata Kuliah</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                         <form method="POST">
-                                <div class="form-group">
-                                <strong>Kode Jurusan:</strong>
-                                <input type="text" 
-                                value="<?php 
-                                        foreach ($sequence_id_jurusan as $sidj){
-                                            $sidjrsn = $sidj->kode_jurusan;
-                                            $urutan = (int) substr($sidjrsn,3,4);
-                                            $urutan++;
-                                            $huruf ="KDJ";
-                                            $sidjrsn = $huruf . sprintf("%04s", $urutan);
-                                            echo $sidjrsn;
-                                        }
-                                ?>"       
-                                class="form-control" name="kode_jurusan" readonly><br>
-                                <strong>Nama  Jurusan:</strong>
-                                <input type="text" class="form-control" name="nama_jurusan" required="" placeholder="Nama Jurusan"><br>
+                    <form method="POST">
+                        <div class="form-group">
+                        <strong>Kode Mata Kuliah:</strong>
+                        <input type="text" class="form-control"
+                        value="<?php 
+                                foreach ($sequence_id_matakuliah as $sidmk){
+                                    $sidmkl = $sidmk->kode_mk;
+                                    $urutan = (int) substr($sidmkl,3,4);
+                                    $urutan++;
+                                    $huruf ="KMK";
+                                    $sidmkl = $huruf . sprintf("%04s", $urutan);
+                                    echo $sidmkl;
+                                }
+                        ?>"
+                        
+                        name="kode_mk" readonly><br>
+
+
+                                <strong>Nama Mata Kuliah:</strong>
+                                <input type="text" class="form-control" name="nama_mk" required="" placeholder="Nama Kelas"><br>
+                                 
                                 
                                 </div>
  
@@ -157,51 +165,56 @@ $no = 1;
                                         </div>
                                     </div>
                                     </div>
-                <!-- Close Modal Tambah Jurusan -->
+                <!-- Close Modal Tambah Mata Kuliah -->
+    
 
-                </div>
-                
-                <div class="container">
-                    
-                <table id="example" class="table table-striped table-bordered">
-                    <thead>
-                        <th>No</th>
-                            <th>Kode Jurusan</th>
-                            <th>Nama Jurusan</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+            <div class="container">
+            <table id="example" class="table table-striped table-bordered">
+                <thead>
+                    <th>No</th>
+                    <th>Kode Mata Kuliah</th>
+                    <th>Nama Mata Kuliah</th>
+                </thead>
+            <tbody>
+    
+    <?php 
+    error_reporting(0);
+        
+       # $arai = $collection ->inventory->aggregate({$project=>{colors=>{$size=>array('$colors')}}});
+        
 
-                    <?php 
-                    
-                    # $arai = $collection ->inventory->aggregate({$project=>{colors=>{$size=>array('$colors')}}});
-                    
-                    $jurusan = $collection ->jurusan->find([]);
-                    
-                    foreach ($jurusan as $jrs){
-                        echo "<tr>";
-                        echo "<td>".$no."</td>";
-                        echo "<td>".$jrs->kode_jurusan."</td>";
-                        echo "<td>".$jrs->nama_jurusan."</td>";
-                        echo "<td><a href='v_admin_edit_jrs.php?id=".$jrs->_id."' class='btn btn-info' >
-                        <i class='fa fa-pencil'></i> Edit</a>  
-                            <a href='v_admin_delete_jrs.php?id=".$jrs->_id."' class='btn btn-danger'> <i class='fa fa-trash'></i> Delete</a></td>";
-                        echo "</tr>";
-                        
-                        $no +=1;
-                        
-                    }
+       $matakuliah = $collection->matakuliah->find(array('$or' => array(
                 
-                    ?>
-                    </tbody>
-                
-                </table>
+        array("kode_mk" => $_SESSION['kode_mk'][0]),
+        array("kode_mk" => $_SESSION['kode_mk'][1]),
+        array("kode_mk" => $_SESSION['kode_mk'][2]),
+        array("kode_mk" => $_SESSION['kode_mk'][3]),
+        array("kode_mk" => $_SESSION['kode_mk'][4]),
+        array("kode_mk" => $_SESSION['kode_mk'][5]),
+  
+      )));
 
-                
+      
+
+        foreach ($matakuliah as $mkl){
+            echo "<tr>";
+            echo "<td>".$no."</td>";
+            echo "<td>".$mkl->kode_mk."</td>";
+            echo "<td>".$mkl->nama_mk."</td>";
+
+           
+            echo "</tr>";
             
+            $no +=1;
+            
+        }
+        ?>
+                </tbody>
+                <tbody class = "pagination-container"></tbody>
+            </table>
+            <div class = "pagination-nav"></div>
         </div>
-                    
+
         <script>
         $(document).ready(function() {
             $('#example').DataTable();
@@ -212,7 +225,8 @@ $no = 1;
         </div>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-        
-      <?php require_once('footer.php'); ?>
+        <!-- Core theme JS-->
+        <script src="../js/scripts.js"></script>
+    <?php require_once('footer.php'); ?>
     </body>
 </html>

@@ -127,7 +127,16 @@
                <table id="form-body">
                         <tr>
                             <td>
-                                <input type="text" class="form-control" name="kode_kelas[]" placeholder="Kode Kelas">
+                                <select name="kode_kelas[]" iclass="form-control" required>
+                                    <option value="" disabled selected> Pilih Kode Kelas</option>
+                                    <?php
+                                          $kelas = $collection ->kelas->find([]);
+
+                                          foreach($kelas as $kls){
+                                              echo "<option value='$kls->kode_kelas'>$kls->kode_kelas - $kls->nama_kelas</option>";
+                                          }
+                                    ?>
+                                </select>
                             </td>
                             
                             <td>
@@ -136,6 +145,18 @@
                         </tr>
                 </table>        
                
+                <strong>Kode Jurusan:</strong>
+                 <select name="kode_jurusan" class ="form-control" required>
+                  <option value="" disabled selected>Pilih Jurusan </option>
+                   <?php
+                                $jurusan = $collection ->jurusan->find([]);
+                                foreach($jurusan as $jrs){
+                                    echo "<option value='$jrs->kode_jurusan'>$jrs->kode_jurusan - $jrs->nama_jurusan</option>";
+
+                                }
+                                ?>
+                                </select>
+
                 <strong>Kode Mata Kuliah:</strong>
                <table id="form-body2">
                         <tr>

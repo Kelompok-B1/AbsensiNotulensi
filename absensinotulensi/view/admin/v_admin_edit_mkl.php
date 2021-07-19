@@ -6,19 +6,12 @@ error_reporting(0);
    }
  
    if(isset($_POST['submit'])){
-      $nip = array();
-      for ($i = 0; $i < $_POST['nip']; $i++){
-        if($_POST['nip'][$i]){ 
-            array_push($nip,$_POST['nip'][$i]);
-        }else{
-         break;
-         }
-       }
-    $collection->matakuliah->updateOne(
+    $has_errors =false; 
+try{$collection->matakuliah->updateOne(
        ['_id' => new MongoDB\BSON\ObjectID($_GET['id'])],
        ['$set' =>['kode_mk' => $_POST['kode_mk'],'nama_mk' => $_POST['nama_mk'],
        
-       'nip' => $nip
+       
        ]]       
        
        /*['nim' => $_POST['nim'],
@@ -33,9 +26,31 @@ error_reporting(0);
        'email' => $_POST['email']]*/
 
 
-   );
- 
-   header("Location: v_admin_tampil_mkl.php");
+   );}
+   catch(exception $e){
+
+      $has_errors =true; 
+   }
+   if ($has_errors==false){
+    
+      echo"
+      <script>
+        window.alert('Data Mata Kuliah  Berhasil Diupdate ! Anda Akan Diarahkan Ke Halaman Data Mata Kuliah');
+        window.location.href='v_admin_tampil_mkl.php';
+        </script>";
+
+       
+     
+      
+      
+     }else if($has_errors!==false){
+      echo"
+      <script>
+        window.alert('Data Mata Kuliah Tidak Berhasil Diupdate ! Mohon Cek Kembali Pengisian Form Pastikan Tidak Ada Data Duplikat');
+        window.location.href='v_admin_edit_mkl.php';
+        </script>";
+
+         }
 }
 ?>
 
@@ -52,18 +67,21 @@ error_reporting(0);
         
    </head>
    <body>
-      <div class="container">
+      <div class="container" style="margin-left:500px;margin-top:150px;">
          <br>
-         <CENTER><h1>Ubah Data Mata Kuliah</h1></CENTER>
-         <a href="v_admin_tampil_mkl.php" class="btn btn-primary">Kembali</a>
+         <div class="header" style="margin-left:100px;">
+            <h2>Ubah Data Mata Kuliah</h2>
+         </div>
+        
+      
          <form method="POST">
-            <div class="form-group">
+            <div class="form-group col-md-5">
                <strong>Kode Mata Kuliah:</strong>
                <input type="text" class="form-control" value="<?php  echo  $matakuliah->kode_mk;?>"  name="kode_mk" readonly><br>
 
                <strong>Nama Mata Kuliah:</strong>
                <input type="text" class="form-control" value="<?php  echo  $matakuliah->nama_mk;?>" name="nama_mk" required="" placeholder=""><br>
-              
+               <a href="v_admin_tampil_mkl.php" class="btn btn-primary">Kembali</a>
                 <button type="submit" name="submit" class="btn btn-success">Ubah</button>
             </div>
          </form>

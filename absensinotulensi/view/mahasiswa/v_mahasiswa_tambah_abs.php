@@ -54,5 +54,5 @@ function take_snapshot() {
 
 </script>
 
-<>
+
 

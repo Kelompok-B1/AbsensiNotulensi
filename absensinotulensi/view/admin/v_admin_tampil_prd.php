@@ -21,6 +21,11 @@ $no = 1;
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Sistem Absensi dan Notulensi</title>
+        <!-- Bootstrap core JS-->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
@@ -57,12 +62,115 @@ $no = 1;
                         </div>
                     </div>
                 </nav>
+
+                <!-- Modal Tambah Prodi -->
+                <?php 
+                    #kode otomatis untuk prodi
+                    require '../../vendor/autoload.php';
+                    require '../../model/connect.php';
+                    #kode otomatis untuk prodi
+                    $sequence_id_prodi = $collection ->prodi->find([],['limit'=>1,'sort'=>['kode_prodi'=>-1]]);
+                    if(isset($_POST['submit'])){
+                        $has_errors =false;
+                    try {$insertOneResult = $collection->prodi->insertOne([
+                            'kode_prodi' => $_POST['kode_prodi'],
+                            'nama_prodi' => $_POST['nama_prodi'],
+                            'kode_jurusan' => $_POST['kode_jurusan'],
+                  
+                  
+                        ]);}
+                    catch (exception $e){
+                        $has_errors =true;
+                    }
+
+                    if ($has_errors==false){
+                        echo"
+                        <div class='alert alert-success alert-dismissible fade show' role='alert'>
+                           <b>Data Prodi Berhasil Ditambahkan</b>
+                           <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                           <span aria-hidden='true'>&times;</span>
+                         </button>
+                        </div>
+                         
+                       
+                        ";
+                        
+                       }else if($has_errors!==false){
+                        echo"
+                        <div class='alert alert-danger'alert-dismissible fade show' role='alert'>
+                            <b>Data Prodi Tidak Berhasil Ditambahkan</b>.Mohon Cek Kembali Pengisian Data Agar Tidak Ada Yang Duplikat</a>.
+                            <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                            <span aria-hidden='true'>&times;</span>
+                          </button>
+                        </div>
+                        ";
+                           }
+                           $sequence_id_prodi = $collection ->prodi->find([],['limit'=>1,'sort'=>['kode_prodi'=>-1]]);
+                
+                    }
+                    ?>
+
+                
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Tambah Data Prodi</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                         <form method="POST">
+                                <div class="form-group">
+                                <strong>Kode Prodi:</strong>
+                                <input type="text" 
+                                value="<?php 
+                                        foreach ($sequence_id_prodi as $sidp){
+                                            $sidprd = $sidp->kode_prodi;
+                                            $urutan = (int) substr($sidprd,3,4);
+                                            $urutan++;
+                                            $huruf ="KDP";
+                                            $sidprd = $huruf . sprintf("%04s", $urutan);
+                                            echo $sidprd;
+                                        }
+                                ?>"       
+                                class="form-control" name="kode_prodi" readonly><br>
+
+                                <strong>Nama  Prodi:</strong>
+                                <input type="text" class="form-control" name="nama_prodi" required="" placeholder="Nama Prodi"><br>
+                                 
+                                <strong>Kode Jurusan:</strong>
+                                <select name="kode_jurusan" class ="form-control" required>
+                                <option value="" disabled selected>Pilih Jurusan </option>
+                                <?php
+                                $jurusan = $collection ->jurusan->find([]);
+                                foreach($jurusan as $jrs){
+                                    echo "<option value='$jrs->kode_jurusan'>$jrs->kode_jurusan - $jrs->nama_jurusan</option>";
+
+                                }
+                                ?>
+                                </select>
+                                </div>
+ 
+                    </div>
+                                    <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                          
+                                            <button type="submit" name="submit" class="btn btn-success">Tambah</button>
+                                    </div>
+                             </form>
+                                        </div>
+                                    </div>
+                                    </div>
+                <!-- Close Modal Tambah PRodi -->
+
                 <div class="container">
                   
                   <br><a href="v_admin.php" type = "submit" class = "btn btn-primary post_search_submit"><i class="fa fa-reply"></i> Kembali Ke Beranda</a>
                   <p><h3 align="center"><b>Data Program Studi</b></h3><br>
                   
-                  <a href="v_admin_tambah_prd.php" type="submit" name="submit" class="btn btn-success"><i class="fa fa-plus"></i> Tambah Data Baru</a><br/><br/>
+                  <button  type="button"  class="btn btn-success" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus"></i> Tambah Data Baru</button><br/><br/>
                   <br>
                   </div>
                 

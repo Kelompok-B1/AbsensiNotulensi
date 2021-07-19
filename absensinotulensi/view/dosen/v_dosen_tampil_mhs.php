@@ -265,11 +265,10 @@ $no = 1;
                     <input type = "hidden" value = "" />
                 </form>
                 <br>
-                <a href="v_admin.php" type = "submit" class = "btn btn-primary post_search_submit"><i class="fa fa-reply"></i> Kembali Ke Beranda</a>
+                <a href="v_dosen.php" type = "submit" class = "btn btn-primary post_search_submit"><i class="fa fa-reply"></i> Kembali Ke Beranda</a>
                 <p><h3 align=center><b>Data Mahasiswa</b></h3><br>
                 
-                <button  type="button"  class="btn btn-success" data-toggle="modal" data-target="#exampleModalDosen"><i class="fa fa-plus"></i> Tambah Data Baru</button><br/><br/>
-                </div>
+                    </div>
                 
         <div class="container">
             <table id="example" class="table table-striped table-bordered">
@@ -283,11 +282,31 @@ $no = 1;
                     <th id = "no_telp" class = "active">No.Telepon</th>
                     <th id = "alamat" class = "active">Alamat</th>
                     <th id = "email" class = "active">Email</th>
-                    <th id = "action" class = "active">Aksi</th>
+              
                 </tr>
             </thead>
-            <?php 
-            $mahasiswa = $collection ->mahasiswa->find([]);
+            <?php
+             error_reporting(0);
+           
+    
+           
+            /*$mahasiswa = $collection ->mahasiswa->aggregate([
+                ['$match'=>array('kode_kelas'=>$_SESSION['kode_kelas'][0])]
+                
+            
+            ]);*/
+            
+            $mahasiswa = $collection->mahasiswa->find(array('$or' => array(
+                
+                array("kode_kelas" => $_SESSION['kode_kelas'][0]),
+                array("kode_kelas" => $_SESSION['kode_kelas'][1]),
+                array("kode_kelas" => $_SESSION['kode_kelas'][2]),
+                array("kode_kelas" => $_SESSION['kode_kelas'][3]),
+              
+              )));
+
+         ?>
+        <?php
             foreach ($mahasiswa as $mhs){
                 echo "<tr>";
                 echo "<td>".$no."</td>";
@@ -298,10 +317,7 @@ $no = 1;
                 echo "<td>".$mhs->no_telp."</td>";
                 echo "<td>".$mhs->alamat->kampung." ".$mhs->alamat->no_rumah."</td>";
                 echo "<td>".$mhs->email."</td>";
-                echo "<td><a href='v_admin_edit_mhs.php?id=".$mhs->_id."' class='btn btn-info btn-sm' >
-                <i class='fa fa-pencil'></i>  
-                    <a href='v_admin_delete_mhs.php?id=".$mhs->_id."'class='btn btn-danger btn-sm'> <i class='fa fa-trash'></i> </a></td>";
-                echo "</tr>";
+               
                 $no +=1;
             }
             ?>

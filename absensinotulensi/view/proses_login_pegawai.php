@@ -2,7 +2,7 @@
 session_start();
 require '../vendor/autoload.php';
 require '..//model/connect.php';
-
+error_reporting(0);
 
 $username = $_POST['username'];
 $password = $_POST['password'];
@@ -15,8 +15,27 @@ $password = $_POST['password'];
 $pegawai  = $collection->pegawai->find(['akun' => (object)array('username' => $username,'password' => $password)]);
 
 foreach ($pegawai as $pgw) {
-    $_SESSION['nama']=$pgw->nama_pgw;
     $_SESSION['nip']=$pgw->nip;
+    $_SESSION['nama']=$pgw->nama_pgw;
+
+    for ($x = 0; $x < 10; $x++) {
+        if ($pgw->kode_kelas[$x]==null) {
+       break;
+        }
+        $_SESSION['kode_kelas'][$x] =$pgw->kode_kelas[$x];
+     
+      }
+    
+    for ($i = 0; $i < 10; $i++) {
+        if ($pgw->kode_mk[$i]==null) {
+       break;
+        }
+        $_SESSION['kode_mk'][$x] =$pgw->kode_mk[$i];
+     
+      }
+
+    
+
     $_SESSION['jabatan']=$pgw->jabatan;
     $_SESSION['status_login'] = "sudah_login";
     $storedUsername = $pgw->akun->username;

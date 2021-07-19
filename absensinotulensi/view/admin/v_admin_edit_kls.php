@@ -6,26 +6,38 @@
    }
  
    if(isset($_POST['submit'])){
-      
-    $collection->kelas->updateOne(
+    $has_errors =false;   
+
+try{$collection->kelas->updateOne(
        ['_id' => new MongoDB\BSON\ObjectID($_GET['id'])],
        ['$set' =>['kode_kelas' => $_POST['kode_kelas'],'nama_kelas' => $_POST['nama_kelas'],'kode_prodi' => $_POST['kode_prodi']]]       
+   
+
+   );}
+   catch(exception $e){
+
+      $has_errors =true; 
+   }
+   if ($has_errors==false){
+    
+      echo"
+      <script>
+        window.alert('Data Kelas Berhasil Diupdate ! Anda Akan Diarahkan Ke Halaman Data Kelas');
+        window.location.href='v_admin_tampil_kls.php';
+        </script>";
+
        
-       /*['nim' => $_POST['nim'],
-       'nama_mhs' => $_POST['nama'],
-       'jk' => $_POST['jk'],
-       'kode_kelas' => $_POST['kode_kelas'],
-       'no_telp' => $_POST['no_telp'],
-       'alamat' => (object)array('kampung' => $_POST['kampung'],'no_rumah' => $_POST['no_rumah'],
-                   'rt' => $_POST['rt'],'rw' => $_POST['rw'],'desa' => $_POST['desa'],
-                   'kode_pos' => $_POST['kode_pos'],'kecamatan' => $_POST['kecamatan'],
-                   'kabupaten_kota' => $_POST['kabupaten_kota'],'provinsi' => $_POST['provinsi'],),
-       'email' => $_POST['email']]*/
+     
+      
+      
+     }else if($has_errors!==false){
+      echo"
+      <script>
+        window.alert('Data Kelas Tidak Berhasil Diupdate ! Mohon Cek Kembali Pengisian Form Pastikan Tidak Ada Data Duplikat');
+        window.location.href='v_admin_edit_kls.php';
+        </script>";
 
-
-   );
- 
-   header("Location: v_admin_tampil_kls.php");
+         }
 }
 ?>
 
@@ -42,12 +54,15 @@
         
    </head>
    <body>
-      <div class="container">
+      <div class="container" style="margin-left:500px;margin-top:150px;">
          <br>
-         <CENTER><h1>Ubah Data Kelas</h1></CENTER>
-         <a href="v_admin_tampil_kls.php" class="btn btn-primary">Kembali</a>
+        <div class="header" style="margin-left:130px;">
+           <h2>Ubah Data Kelas</h2>
+         </div> 
+        
+         
          <form method="POST">
-            <div class="form-group">
+            <div class="form-group col-md-5">
                <strong>Kode Kelas:</strong>
                <input type="text" class="form-control" value="<?php  echo  $kelas->kode_kelas;?>"  name="kode_kelas" readonly><br>
 
@@ -55,8 +70,17 @@
                <input type="text" class="form-control" value="<?php  echo  $kelas->nama_kelas;?>" name="nama_kelas" required="" placeholder=""><br>
 
                <strong>Kode Prodi:</strong>
-               <input type="text" class="form-control" value="<?php  echo  $kelas->kode_prodi;?>" name="kode_prodi" required="" placeholder=""><br>
+               <select name="kode_prodi" class ="form-control" required>
+                    <option value="" disabled selected><?php  echo  $kelas->kode_prodi;?></option>
+                    <?php
+                    $prodi = $collection ->prodi->find([]);
+                    foreach($prodi as $prd){
+                        echo "<option value='$prd->kode_prodi'>$prd->kode_prodi - $prd->nama_prodi</option>";
 
+                    }
+                    ?>
+              </select><br>
+              <a href="v_admin_tampil_kls.php" class="btn btn-primary">Kembali</a>
                <button type="submit" name="submit" class="btn btn-success">Ubah</button>
             </div>
          </form>

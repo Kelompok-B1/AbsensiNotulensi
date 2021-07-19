@@ -21,6 +21,11 @@ $no = 1;
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Sistem Absensi dan Notulensi</title>
+        <!-- Bootstrap core JS-->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
@@ -64,8 +69,113 @@ $no = 1;
                     <br><a href="v_admin.php" type = "submit" class = "btn btn-primary post_search_submit"><i class="fa fa-reply"></i> Kembali Ke Beranda</a>
                     <p><h3 align=center><b>Data Kelas</b></h3><br>
                     
-                    <a href="v_admin_tambah_kls.php" type="submit" name="submit" class="btn btn-success"  ><i class="fa fa-plus"></i> Tambah Data Baru</a><br/><br/>
+                    <button  type="button"  class="btn btn-success" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus"></i> Tambah Data Baru</button><br/><br/>
                     </div>
+
+                    <!-- Modal Tambah Prodi -->
+                <?php 
+               
+                    require '../../vendor/autoload.php';
+                    require '../../model/connect.php';
+                    #kode otomatis untuk kelas
+                    $sequence_id_kelas = $collection ->kelas->find([],['limit'=>1,'sort'=>['kode_kelas'=>-1]]);
+                    if(isset($_POST['submit'])){
+                        $has_errors =false;
+                    try {$insertOneResult = $collection->kelas->insertOne([
+                        'kode_kelas' => $_POST['kode_kelas'],
+                        'nama_kelas' => $_POST['nama_kelas'],
+                        'kode_prodi' => $_POST['kode_prodi']
+              
+                  
+                  
+                        ]);}
+                    catch (exception $e){
+                        $has_errors =true;
+                    }
+
+                    if ($has_errors==false){
+                        echo"
+                        <div class='alert alert-success alert-dismissible fade show' role='alert'>
+                           <b>Data Kelas Berhasil Ditambahkan</b>
+                           <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                           <span aria-hidden='true'>&times;</span>
+                         </button>
+                        </div>
+                         
+                       
+                        ";
+                        
+                       }else if($has_errors!==false){
+                        echo"
+                        <div class='alert alert-danger'alert-dismissible fade show' role='alert'>
+                            <b>Data Kelas Tidak Berhasil Ditambahkan</b>.Mohon Cek Kembali Pengisian Data Agar Tidak Ada Yang Duplikat</a>.
+                            <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                            <span aria-hidden='true'>&times;</span>
+                          </button>
+                        </div>
+                        ";
+                           }
+                           $sequence_id_kelas = $collection ->kelas->find([],['limit'=>1,'sort'=>['kode_kelas'=>-1]]);
+                   
+                
+                    }
+                    ?>
+
+                
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Tambah Data Kelas</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                         <form method="POST">
+                                <div class="form-group">
+                                <strong>Kode Kelas:</strong>
+                                <input type="text" class="form-control" 
+                                value="<?php 
+                                        foreach ($sequence_id_kelas as $sidk){
+                                            $sidkls = $sidk->kode_kelas;
+                                            $urutan = (int) substr($sidkls,3,4);
+                                            $urutan++;
+                                            $huruf ="KDK";
+                                            $sidkls = $huruf . sprintf("%04s", $urutan);
+                                            echo $sidkls;
+                                        }
+                                ?>"
+                                name="kode_kelas" readonly><br>
+
+                                <strong>Nama Kelas:</strong>
+                                <input type="text" class="form-control" name="nama_kelas" required="" placeholder="Nama Kelas"><br>
+                                 
+                                <strong>Kode Prodi:</strong>
+                                <select name="kode_prodi" class ="form-control" required>
+                                    <option value="" disabled selected>Pilih Prodi </option>
+                                    <?php
+                                    $prodi = $collection ->prodi->find([]);
+                                    foreach($prodi as $prd){
+                                        echo "<option value='$prd->kode_prodi'>$prd->kode_prodi - $prd->nama_prodi</option>";
+
+                                    }
+                                    ?>
+                                </select> 
+                                </div>
+ 
+                    </div>
+                                    <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                          
+                                            <button type="submit" name="submit" class="btn btn-success">Tambah</button>
+                                    </div>
+                             </form>
+                                        </div>
+                                    </div>
+                                    </div>
+                <!-- Close Modal Tambah PRodi -->
+
                     <div class="container">
                             <table id="example" class="table table-striped table-bordered">
                                 <thead>
@@ -90,7 +200,7 @@ $no = 1;
                             array('$arrayElemAt'=>array('$KelasProdi',0)),'$$ROOT')))],
                         ['$project'=>(object)array('KelasProdi'=>0)]
                             ]); 
-
+                            
                             //$kelas = $collection ->kelas->find([]);
 
                             foreach ($kelas1 as $kls){

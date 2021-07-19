@@ -6,8 +6,8 @@
    }
  
    if(isset($_POST['submit'])){
-      
-    $collection->mahasiswa->updateOne(
+    $has_errors =false; 
+   try{ $collection->mahasiswa->updateOne(
        ['_id' => new MongoDB\BSON\ObjectID($_GET['id'])],
        ['$set' =>['nim' => $_POST['nim'],'nama_mhs' => $_POST['nama_mhs'],'jk' => $_POST['jk'],
        'kode_kelas' => $_POST['kode_kelas'],'no_telp' => $_POST['no_telp'],
@@ -32,9 +32,33 @@
        'email' => $_POST['email']]*/
 
 
-   );
- 
-   header("Location: v_admin_tampil_mhs.php");
+   );}
+   catch(exception $e){
+
+      $has_errors =true; 
+   }
+   if ($has_errors==false){
+    
+      echo"
+      <script>
+        window.alert('Data Mahasiswa Berhasil Diupdate ! Anda Akan Diarahkan Ke Halaman Data Mahasiswa');
+        window.location.href='v_admin_tampil_mhs.php';
+        </script>";
+
+       
+     
+      
+      
+     }else if($has_errors!==false){
+      echo"
+      <script>
+        window.alert('Data Mahasiswa  Tidak Berhasil Diupdate ! Mohon Cek Kembali Pengisian Form Pastikan Tidak Ada Data Duplikat');
+        window.location.href='v_admin_edit_mhs.php';
+        </script>";
+
+         }
+
+   
 }
 ?>
 
@@ -54,58 +78,130 @@
       <div class="container">
          <br>
          <CENTER><h1>Ubah Data Mahasiswa</h1></CENTER>
-         <a href="v_admin_tampil_mhs.php" class="btn btn-primary">Kembali</a>
+         
          <form method="POST">
-            <div class="form-group">
-               <strong>NIM:</strong>
-               <input type="text" class="form-control" value="<?php  echo  $mahasiswa->nim;?>"  name="nim" readonly><br>
 
-               <strong>Nama Mahasiswa:</strong>
-               <input type="text" class="form-control" value="<?php  echo  $mahasiswa->nama_mhs;?>" name="nama_mhs" required="" placeholder=""><br>
+               <div class="form-group">
+                  <strong>NIM</strong>
+                  <input type="text" class="form-control" value="<?php  echo  $mahasiswa->nim;?>"  name="nim" readonly><br>
+               </div>
 
-               <strong>Password:</strong>
-               <input type="text" class="form-control" value="<?php  echo  $mahasiswa->akun->password;?>" name="password" required="" placeholder=""><br>
+               <div class="form-group">
+                  <strong>Nama Mahasiswa</strong>
+                  <input type="text" class="form-control" value="<?php  echo  $mahasiswa->nama_mhs;?>" name="nama_mhs" required="" placeholder="Nama Mahasiswa"><br>
+               </div>
 
-               <strong>JK:</strong>
-               <input type="text" class="form-control" value="<?php  echo  $mahasiswa->jk;?>" name="jk" required="" placeholder=""><br>
+               <div class="form-group"> 
+                  <strong>Password</strong>
+                  <input type="text" class="form-control" value="<?php  echo  $mahasiswa->akun->password;?>" name="password" required="" placeholder=""><br>
+               </div>
 
-               <strong>Kode Kelas:</strong>
-               <input type="text" class="form-control" value="<?php  echo  $mahasiswa->kode_kelas;?>" name="kode_kelas" required="" placeholder=""><br>
+               <strong>Jenis Kelamin</strong>
+               <div class="form-check">
+                  <input class="form-check-input" type="radio" name="jk" id="exampleRadios1" value="L"<?php if($mahasiswa->jk=='L'){ echo 'checked';}?> >
+                        <label class="form-check-label" for="exampleRadios1">
+                        Laki - Laki
+                        </label>
+               </div>
 
-               <strong>No Telp:</strong>
-               <input type="text" class="form-control" value="<?php  echo  $mahasiswa->no_telp;?>" name="no_telp"  placeholder=""><br>
+               <div class="form-check">
+                  <input class="form-check-input" type="radio" name="jk" id="exampleRadios2" value="P" <?php if($mahasiswa->jk=='P'){ echo 'checked';}?> >
+                     <label class="form-check-label" for="exampleRadios2">
+                     Perempuan
+                     </label>
+               </div>
 
-               <strong>Kampung:</strong>
-               <input type="text" class="form-control" value="<?php  echo  $mahasiswa->alamat->kampung;?>" name="kampung"  placeholder=""><br>
-               
-               <strong>No Rumah:</strong>
-               <input type="text" class="form-control" value="<?php  echo  $mahasiswa->alamat->no_rumah;?>" name="no_rumah" required="" placeholder=""><br>
+               <div class="form-group">
+                  <strong>No Telepon</strong>
+                  <input type="text" class="form-control" value="<?php  echo  $mahasiswa->no_telp;?>" name="no_telp"  placeholder="No Telepon"><br>
+               </div>
 
-               <strong>RT:</strong>
-               <input type="text" class="form-control" value="<?php  echo  $mahasiswa->alamat->rt;?>" name="rt" required="" placeholder=""><br>
+               <strong>Alamat</strong>
 
-               <strong>RW:</strong>
-               <input type="text" class="form-control" value="<?php  echo  $mahasiswa->alamat->rw;?>" name="rw" required="" placeholder=""><br>
+         <div class="form-row">
+              <div class="form-group col-md-4">
+                <strong>Kampung:</strong>
+                <input type="text" class="form-control" value="<?php  echo  $mahasiswa->alamat->kampung;?>" name="kampung"  placeholder=""><br>
+              </div>
 
-               <strong>Desa:</strong>
-               <input type="text" class="form-control" value="<?php  echo  $mahasiswa->alamat->desa;?>" name="desa" required="" placeholder=""><br>
-               
-               <strong>Kode Pos:</strong>
-               <input type="text" class="form-control" value="<?php  echo  $mahasiswa->alamat->kode_pos;?>" name="kode_pos" required="" placeholder=""><br>
+              <div class="form-group col-md-3">
+                <strong>No Rumah:</strong>
+                <input type="text" class="form-control" value="<?php  echo  $mahasiswa->alamat->no_rumah;?>" name="no_rumah" required="" placeholder=""><br>
+              </div>
 
-               <strong>Kecamatan:</strong>
-               <input type="text" class="form-control" value="<?php  echo  $mahasiswa->alamat->kecamatan;?>" name="kecamatan" required="" placeholder=""><br>
+              <div class="form-group col-md-1">
+                <strong>RT:</strong>
+                <input type="text" class="form-control" value="<?php  echo  $mahasiswa->alamat->rt;?>" name="rt" required="" placeholder=""><br>
+              </div>
 
-               <strong>Kabupaten/Kota:</strong>
-               <input type="text" class="form-control" value="<?php  echo  $mahasiswa->alamat->kabupaten_kota;?>" name="kabupaten_kota" required="" placeholder="xxxxxxxxx"><br>
+              <div class="form-group col-md-1">
+                <strong>RW:</strong>
+                <input type="text" class="form-control" value="<?php  echo  $mahasiswa->alamat->rw;?>" name="rw" required="" placeholder=""><br>
+            </div>
 
-               <strong>Provinsi:</strong>
-               <input type="text" class="form-control" value="<?php  echo  $mahasiswa->alamat->provinsi;?>" name="provinsi" required="" placeholder="xxxxxxxxx"><br>  
+              <div class="form-group col-md-3">
+                <strong>Desa:</strong>
+                <input type="text" class="form-control" value="<?php  echo  $mahasiswa->alamat->desa;?>" name="desa" required="" placeholder=""><br>
+              </div>
 
+              <div class="form-group col-md-3"> 
+                  <strong>Kode Pos:</strong>
+                  <input type="text" class="form-control" value="<?php  echo  $mahasiswa->alamat->kode_pos;?>" name="kode_pos" required="" placeholder=""><br>
+              </div>
+
+              <div class="form-group col-md-3">
+                <strong>Kecamatan:</strong>
+                <input type="text" class="form-control" value="<?php  echo  $mahasiswa->alamat->kecamatan;?>" name="kecamatan" required="" placeholder=""><br>
+              </div>    
+
+              <div class="form-group col-md-3">
+                <strong>Kabupaten/Kota:</strong>
+                <input type="text" class="form-control" value="<?php  echo  $mahasiswa->alamat->kabupaten_kota;?>" name="kabupaten_kota" required="" placeholder="xxxxxxxxx"><br>
+              </div>
+
+              <div class="form-group col-md-3"> 
+                  <strong>Provinsi:</strong>
+                  <input type="text" class="form-control" value="<?php  echo  $mahasiswa->alamat->provinsi;?>" name="provinsi" required="" placeholder="xxxxxxxxx"><br>  
+              </div> 
+        </div>
+
+        <strong>Kelas</strong>
+                        <select name="kode_kelas" class="form-control" required>
+                                    <option value="<?php  echo  $mahasiswa->kode_kelas;?>" disabled selected><?php  echo  $mahasiswa->kode_kelas;?> </option>
+                                    <?php
+                                          $kelas= $collection->kelas->aggregate([
+                                        
+                                        
+                                            ['$lookup'=>(object)array(
+                                                'from'=> "prodi",
+                                                'localField'=> "kode_prodi",    
+                                                'foreignField'=> "kode_prodi",  
+                                                'as'=> "ProdiMahasiswa"
+                                            )],
+                                        
+                                            ['$replaceRoot'=>(object)array('newRoot'=>(object)array('$mergeObjects'=>array((object)
+                                            array('$arrayElemAt'=>array('$ProdiMahasiswa',0)),'$$ROOT')))],
+                                            
+                                           
+                                            ['$project'=>(object)array('{ProdiMahasiswa}'=>0)],
+                                        
+ 
+                                            ]);
+
+                                          foreach($kelas as $kls){
+                                              echo "<option value='$kls->kode_kelas'>$kls->kode_kelas - $kls->nama_kelas - $kls->nama_prodi</option>";
+                                          }
+                                    ?>
+                                </select>
+                        
+ 
+                 
                <strong>Email:</strong>
                <input type="text" class="form-control" value="<?php  echo  $mahasiswa->email;?>" name="email" required="" placeholder="xxxxxxxxx"><br>
+              
+               <a href="v_admin_tampil_mhs.php" class="btn btn-primary">Kembali</a>
                <button type="submit" name="submit" class="btn btn-success">Ubah</button>
-            </div>
+          
          </form>
       </div>
    </body>

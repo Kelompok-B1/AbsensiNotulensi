@@ -23,7 +23,10 @@ error_reporting(0);
           break;
           }
         }
-    $collection->pegawai->updateOne(
+    
+    $has_errors =false;
+
+try{$collection->pegawai->updateOne(
        ['_id' => new MongoDB\BSON\ObjectID($_GET['id'])],
        ['$set' =>['nip' => $_POST['nip'],'nama_pgw' => $_POST['nama_pgw'],'jk' => $_POST['jk'],
        'no_telp' => $_POST['no_telp'],
@@ -51,9 +54,31 @@ error_reporting(0);
        'email' => $_POST['email']]*/
 
 
-   );
- 
-   header("Location: v_admin_tampil_pgw.php");
+   );}
+   catch(exception $e){
+
+    $has_errors =true; 
+ }
+ if ($has_errors==false){
+  
+    echo"
+    <script>
+      window.alert('Data Dosen Berhasil Diupdate ! Anda Akan Diarahkan Ke Halaman Data Dosen');
+      window.location.href='v_admin_tampil_pgw.php';
+      </script>";
+
+     
+   
+    
+    
+   }else if($has_errors!==false){
+    echo"
+    <script>
+      window.alert('Data Dosen Tidak Berhasil Diupdate ! Mohon Cek Kembali Pengisian Form Pastikan Tidak Ada Data Duplikat');
+      window.location.href='v_admin_edit_dsn.php';
+      </script>";
+
+       }
 }
 ?>
 
@@ -72,123 +97,264 @@ error_reporting(0);
    <body>
       <div class="container">
          <br>
-         <CENTER><h1>Ubah Data Dosen</h1></CENTER>
-         <a href="v_admin_tampil_pgw.php" class="btn btn-primary">Kembali</a>
+         <h2>Ubah Data Dosen</h2>
+         
          <form method="POST">
             <div class="form-group">
-               <strong>NIP :</strong>
+               <strong>NIP </strong>
                <input type="text" class="form-control" value="<?php  echo  $dosen->nip;?>"  name="nip" readonly><br>
+            </div>
 
-               <strong>Nama Dosen:</strong>
-               <input type="text" class="form-control" value="<?php  echo  $dosen->nama_pgw;?>" name="nama_pgw" required="" placeholder=""><br>
+          <strong>Akun</strong>
+           <div class="form-row"> 
+              <div class="form-group col-md-6">
+                <strong>Nama Dosen</strong>
+                <input type="text" class="form-control" value="<?php  echo  $dosen->nama_pgw;?>" name="nama_pgw" required="" placeholder=""><br>
+              </div>
+                
+              <div class="form-group col-md-6">
+                <strong>Password</strong>
+                <input type="text" class="form-control" value="<?php  echo  $dosen->akun->password;?>" name="password" required="" placeholder=""><br>
+              </div>
+          </div>
+          
+          <strong>Jenis Kelamin</strong>
+          <div class="form-check">
+              <input class="form-check-input" type="radio" name="jk" id="exampleRadios1" value="L"<?php if($dosen->jk=='L'){ echo 'checked';}?> >
+                  <label class="form-check-label" for="exampleRadios1">
+                  Laki - Laki
+                  </label>
+         </div>
 
-               <strong>Password:</strong>
-               <input type="text" class="form-control" value="<?php  echo  $dosen->akun->password;?>" name="password" required="" placeholder=""><br>
+         <div class="form-check">
+              <input class="form-check-input" type="radio" name="jk" id="exampleRadios2" value="P" <?php if($dosen->jk=='P'){ echo 'checked';}?> >
+                <label class="form-check-label" for="exampleRadios2">
+                Perempuan
+               </label>
+         </div>
 
-               <strong>JK:</strong>
-               <input type="text" class="form-control" value="<?php  echo  $dosen->jk;?>" name="jk" required="" placeholder=""><br>
+          <div class="form-group">
+            <strong>No Telp:</strong>
+            <input type="text" class="form-control" value="<?php  echo  $dosen->no_telp;?>" name="no_telp"  placeholder=""><br>
+         </div>
 
-               <strong>No Telp:</strong>
-               <input type="text" class="form-control" value="<?php  echo  $dosen->no_telp;?>" name="no_telp"  placeholder=""><br>
+         <strong>Alamat</strong>
 
-               <strong>Kampung:</strong>
-               <input type="text" class="form-control" value="<?php  echo  $dosen->alamat->kampung;?>" name="kampung"  placeholder=""><br>
+         <div class="form-row">
+              <div class="form-group col-md-4">
+                <strong>Kampung:</strong>
+                <input type="text" class="form-control" value="<?php  echo  $dosen->alamat->kampung;?>" name="kampung"  placeholder=""><br>
+              </div>
+
+              <div class="form-group col-md-3">
+                <strong>No Rumah:</strong>
+                <input type="text" class="form-control" value="<?php  echo  $dosen->alamat->no_rumah;?>" name="no_rumah" required="" placeholder=""><br>
+              </div>
+
+              <div class="form-group col-md-1">
+                <strong>RT:</strong>
+                <input type="text" class="form-control" value="<?php  echo  $dosen->alamat->rt;?>" name="rt" required="" placeholder=""><br>
+              </div>
+
+              <div class="form-group col-md-1">
+                <strong>RW:</strong>
+                <input type="text" class="form-control" value="<?php  echo  $dosen->alamat->rw;?>" name="rw" required="" placeholder=""><br>
+            </div>
+
+              <div class="form-group col-md-3">
+                <strong>Desa:</strong>
+                <input type="text" class="form-control" value="<?php  echo  $dosen->alamat->desa;?>" name="desa" required="" placeholder=""><br>
+              </div>
+
+              <div class="form-group col-md-3"> 
+                  <strong>Kode Pos:</strong>
+                  <input type="text" class="form-control" value="<?php  echo  $dosen->alamat->kode_pos;?>" name="kode_pos" required="" placeholder=""><br>
+              </div>
+
+              <div class="form-group col-md-3">
+                <strong>Kecamatan:</strong>
+                <input type="text" class="form-control" value="<?php  echo  $dosen->alamat->kecamatan;?>" name="kecamatan" required="" placeholder=""><br>
+              </div>    
+
+              <div class="form-group col-md-3">
+                <strong>Kabupaten/Kota:</strong>
+                <input type="text" class="form-control" value="<?php  echo  $dosen->alamat->kabupaten_kota;?>" name="kabupaten_kota" required="" placeholder="xxxxxxxxx"><br>
+              </div>
+
+              <div class="form-group col-md-3"> 
+                  <strong>Provinsi:</strong>
+                  <input type="text" class="form-control" value="<?php  echo  $dosen->alamat->provinsi;?>" name="provinsi" required="" placeholder="xxxxxxxxx"><br>  
+              </div> 
+        </div>
+          <div class="form-group">
+            <strong>Email:</strong>
+            <input type="text" class="form-control" value="<?php  echo  $dosen->email;?>" name="email" required="" placeholder="xxxxxxxxx"><br>
+          </div>
+
                
-               <strong>No Rumah:</strong>
-               <input type="text" class="form-control" value="<?php  echo  $dosen->alamat->no_rumah;?>" name="no_rumah" required="" placeholder=""><br>
+          
+          <strong>Kelas</strong>
 
-               <strong>RT:</strong>
-               <input type="text" class="form-control" value="<?php  echo  $dosen->alamat->rt;?>" name="rt" required="" placeholder=""><br>
+          <table id="form-body">
+                                    <tr id="add_select"> 
+                                    
+                                        <td>
+                                            <select name="kode_kelas[]" class="form-control" required>
+                                                <option value="<?php  echo  $dosen->kode_kelas[0];?>"  selected> <?php  echo  $dosen->kode_kelas[0];?></option>
+                                                <?php
+                                          $kelas= $collection->kelas->aggregate([
+                                        
+                                        
+                                            ['$lookup'=>(object)array(
+                                                'from'=> "prodi",
+                                                'localField'=> "kode_prodi",    
+                                                'foreignField'=> "kode_prodi",  
+                                                'as'=> "ProdiMahasiswa"
+                                            )],
+                                        
+                                            ['$replaceRoot'=>(object)array('newRoot'=>(object)array('$mergeObjects'=>array((object)
+                                            array('$arrayElemAt'=>array('$ProdiMahasiswa',0)),'$$ROOT')))],
+                                            
+                                           
+                                            ['$project'=>(object)array('{ProdiMahasiswa}'=>0)],
+                                        
+ 
+                                            ]);
 
-               <strong>RW:</strong>
-               <input type="text" class="form-control" value="<?php  echo  $dosen->alamat->rw;?>" name="rw" required="" placeholder=""><br>
+                                          foreach($kelas as $kls){
+                                              echo "<option value='$kls->kode_kelas'>$kls->kode_kelas - $kls->nama_kelas - $kls->nama_prodi</option>";
+                                          }
+                                    ?>
+                                            </select>
+                                        </td>
+                                       
+                                    
+                                    </tr>
 
-               <strong>Desa:</strong>
-               <input type="text" class="form-control" value="<?php  echo  $dosen->alamat->desa;?>" name="desa" required="" placeholder=""><br>
-               
-               <strong>Kode Pos:</strong>
-               <input type="text" class="form-control" value="<?php  echo  $dosen->alamat->kode_pos;?>" name="kode_pos" required="" placeholder=""><br>
+                                    <?php
+                                    for ($i = 1; $i < 10; $i++) {
+                                      if ($dosen->kode_kelas[$i]==null) {
+                                      break;
+                                      }
+                                    
+                                    echo "
+                                    <tr> 
+                                    
+                                    <td>
+                                        <select name='kode_kelas[]' class='form-control' required>
+                                            <option value='".$dosen->kode_kelas[$i]."'  selected>  ".$dosen->kode_kelas[$i]."</option>
+                                           
+                                      ";
+                                      ?>
+                                      <?php
+                                      $kelas= $collection->kelas->aggregate([
+                                    
+                                    
+                                        ['$lookup'=>(object)array(
+                                            'from'=> 'prodi',
+                                            'localField'=> 'kode_prodi',    
+                                            'foreignField'=> 'kode_prodi',  
+                                            'as'=> 'ProdiMahasiswa'
+                                        )],
+                                    
+                                        ['$replaceRoot'=>(object)array('newRoot'=>(object)array('$mergeObjects'=>array((object)
+                                        array('$arrayElemAt'=>array('$ProdiMahasiswa',0)),'$$ROOT')))],
+                                        
+                                       
+                                        ['$project'=>(object)array('{ProdiMahasiswa}'=>0)],
+                                    
 
-               <strong>Kecamatan:</strong>
-               <input type="text" class="form-control" value="<?php  echo  $dosen->alamat->kecamatan;?>" name="kecamatan" required="" placeholder=""><br>
+                                        ]);
+                                      
+                                      ?>
+                                      <?php
+                                      foreach($kelas as $kls){
+                                          echo "<option value='$kls->kode_kelas'>$kls->kode_kelas - $kls->nama_kelas - $kls->nama_prodi</option>";
+                                      }
+                                      ?>
+                                        </select>
+                                    </td>
+                                    <td>
+                                       <button type='button' class='btn btn-danger' onclick='del_form(this)'>Hapus</button>
+                                   </td>
+                                </tr>
+                                    
+                                 <?php   
 
-               <strong>Kabupaten/Kota:</strong>
-               <input type="text" class="form-control" value="<?php  echo  $dosen->alamat->kabupaten_kota;?>" name="kabupaten_kota" required="" placeholder="xxxxxxxxx"><br>
-
-               <strong>Provinsi:</strong>
-               <input type="text" class="form-control" value="<?php  echo  $dosen->alamat->provinsi;?>" name="provinsi" required="" placeholder="xxxxxxxxx"><br>  
-
-               <strong>Email:</strong>
-               <input type="text" class="form-control" value="<?php  echo  $dosen->email;?>" name="email" required="" placeholder="xxxxxxxxx"><br>
-               
-               <strong>Kode Kelas:</strong>
-               <table id="form-body">
-                     <tr>
-                            <td>
-                                <input type="text" class="form-control"  value="<?php  echo  $dosen->kode_kelas[0];?>"name="kode_kelas[]" placeholder="Kode Kelas">
-                            </td>
-                            
-                            <td>
-                            <button type="button" onclick="add_form()" class="btn btn-success">Tambah Kode Kelas</button>
-                            </td>
-                   </tr>
-               <?php 
-               
-               for ($i = 1; $i < 10; $i++) {
-                  if ($dosen->kode_kelas[$i]==null) {
-                  break;
-                  }
-                 
-
-                  echo "<tr>
-                  <td>
-                      <input type='text' class='form-control' value=".$dosen->kode_kelas[$i]." name='kode_kelas[]' placeholder='Kode Kelas'>
-                  </td>
-                  
-                  <td>
-                  <button type='button' class='btn btn-danger' onclick='del_form(this)'>Hapus</button>
-                  </td>
-              </tr>";
-                }
-               
-               ?>
-                </table>  
-               
-               
-               <strong>Kode Mata Kuliah:</strong>
-               <table id="form-body2">
-                     <tr>
-                            <td>
-                                <input type="text" class="form-control"  value="<?php  echo  $dosen->kode_mk[0];?>"name="kode_mk[]" placeholder="Kode Mata Kuliah">
-                            </td>
-                            
-                            <td>
-                            <button type="button" onclick="add_form2()" class="btn btn-success">Tambah Kode Mata Kuliah</button>
-                            </td>
-                   </tr>
-               <?php 
-               
-               for ($i = 1; $i < 10; $i++) {
-                  if ($dosen->kode_mk[$i]==null) {
-                  break;
-                  }
+                                    }
+                                    ?>
+                            </table>               
                 
 
-                  echo "<tr>
-                  <td>
-                      <input type='text' class='form-control' value=".$dosen->kode_mk[$i]." name='kode_mk[]' placeholder='Kode Mata Kuliah'>
-                  </td>
-                  
-                  <td>
-                  <button type='button' class='btn btn-danger' onclick='del_form2(this)'>Hapus</button>
-                  </td>
-              </tr>";
-                }
-               
-               ?>
-                </table>  
-               <button type="submit" name="submit" class="btn btn-success">Ubah</button>
+
+          <div class="form-group">
+               <strong> Mata Kuliah</strong>
+                <table id="form-body2">
+                                    <tr id="add_select2"> 
+                                    
+                                        <td>
+                                            <select name="kode_mk[]" class="form-control" required>
+                                                <option value="<?php  echo  $dosen->kode_mk[0];?>"  selected> <?php  echo  $dosen->kode_mk[0];?></option>
+                                                <?php
+                                          $matakuliah= $collection->matakuliah->find();
+
+                                          foreach($matakuliah as $mkl){
+                                              echo "<option value='$mkl->kode_mk'>$mkl->kode_mk - $mkl->nama_mk </option>";
+                                          }
+                                    ?>
+                                            </select>
+                                        </td>
+                                       
+                                    
+                                    </tr>
+
+                                    <?php
+                                    for ($i = 1; $i < 10; $i++) {
+                                      if ($dosen->kode_mk[$i]==null) {
+                                      break;
+                                      }
+                                    
+                                    echo "
+                                    <tr> 
+                                    
+                                    <td>
+                                        <select name='kode_ml[]' class='form-control' required>
+                                            <option value='".$dosen->kode_mk[$i]."'  selected>  ".$dosen->kode_mk[$i]."</option>
+                                           
+                                      ";
+                                      ?>
+                                      <?php
+                                      $matakuliah= $collection->matakuliah->find();
+                                      
+                                      ?>
+                                      <?php
+                                      foreach($matakuliah as $mkl){
+                                        echo "<option value='$mkl->kode_mk'>$mkl->kode_mk - $mkl->nama_mk </option>";
+                                    }
+                                      ?>
+                                        </select>
+                                    </td>
+                                    <td>
+                                       <button type='button' class='btn btn-danger' onclick='del_form(this)'>Hapus</button>
+                                   </td>
+                                </tr>
+                                    
+                                 <?php   
+
+                                    }
+                                    ?>
+                            </table>   
             </div>
+            
+            <div class="form-group">
+                <div class="btn-group" style="margin-right:680px;">
+                  <button style="margin-right:20px;" type="button" onclick="add_form()"  class="btn btn-primary">Tambah Kelas</button>
+                  <button type="button" onclick="add_form2()"   class="btn btn-info">Tambah Mata Kuliah</button>
+               </div>                     
+              <a align href="v_admin_tampil_pgw.php" class="btn btn-primary" style="margin-right:20px;">Kembali</a>
+              <button type="submit" name="submit" class="btn btn-success">Ubah</button>
+            </div>    
+               
          </form>
       </div>
 
@@ -199,8 +365,9 @@ error_reporting(0);
             var html = '';
  
             html += '<tr>';
-            html += '<td><input type="text" class="form-control" name="kode_kelas[]" placeholder="Kode Kelas"></td>';
-              html += '<td><button type="button" class="btn btn-danger" onclick="del_form(this)">Hapus</button></td>';
+           // html += '<td><input type="text" class="form-control" name="kode_kelas[]" placeholder="Kode Kelas"></td>';
+           html += document.getElementById("add_select").innerHTML  
+            html += '<td><button type="button" class="btn btn-danger" onclick="del_form(this)">Hapus</button></td>';
             html += '</tr>';
  
             $('#form-body').append(html);
@@ -216,8 +383,9 @@ error_reporting(0);
             var html = '';
  
             html += '<tr>';
-            html += '<td><input type="text" class="form-control" name="kode_mk[]" placeholder="Kode Mata Kuliah"></td>';
-              html += '<td><button type="button" class="btn btn-danger" onclick="del_form2(this)">Hapus</button></td>';
+            //html += '<td><input type="text" class="form-control" name="kode_mk[]" placeholder="Kode Mata Kuliah"></td>';
+            html += document.getElementById("add_select2").innerHTML  
+            html += '<td><button type="button" class="btn btn-danger" onclick="del_form2(this)">Hapus</button></td>';
             html += '</tr>';
  
             $('#form-body2').append(html);
