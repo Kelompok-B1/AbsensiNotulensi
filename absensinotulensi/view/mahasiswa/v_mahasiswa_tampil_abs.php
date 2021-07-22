@@ -7,7 +7,7 @@ $no = 1;
   //memulai session yang disimpan pada browser
   session_start();
   if($_SESSION['status_login']!="sudah_login"){
-    header("location:../login_pegawai.php?pesan=belum_login");
+    header("location:../../MainFrame/index.php?pesan=belum_login");
 }
     
   //cek apakah sesuai status sudah login? kalau belum akan kembali ke form login
@@ -64,7 +64,7 @@ $no = 1;
                                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $_SESSION['nama'];?></a>
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="../logout_pegawai.php">Logout</a>
+                                        <a class="dropdown-item" href="../logout.php">Logout</a>
                                     </div>
                                 </li>
                             </ul>
@@ -252,9 +252,10 @@ $no = 1;
                     <tbody>
 
                     <?php 
-                            $absensi= $collection->absensi->find([]);
+                            
+                            $absensi= $collection->absensi->find(['data_absen.nim'=>$_SESSION['nim']]);
                             # $arai = $collection ->inventory->aggregate({$project=>{colors=>{$size=>array('$colors')}}});
-                                  #$absensi = $collection ->absensi->find([]);
+                                  #$notulensi = $collection ->notulensi->find([]);
                             
                             foreach ($absensi as $abs){
                                 echo "<tr>";
@@ -268,17 +269,14 @@ $no = 1;
                                 ":".$abs->periode->waktu->detik." ".$abs->periode->tanggal->hari."-"
                                 .$abs->periode->tanggal->bulan."-".$abs->periode->tanggal->tahun."
                                 </td>";
-
+                               
                                 if($abs->status==1){
                                     echo "<td> Hadir </td>";
                                 }else{
                                     echo "<td> Tidak Hadir </td>";
                                 }
-                               
-                                echo "<tr>";
-                               
-                               
-                                
+
+                                echo "</tr>";
                                 $no +=1;
                                 
                             }

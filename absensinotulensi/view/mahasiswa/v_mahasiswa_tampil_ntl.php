@@ -7,7 +7,7 @@ $no = 1;
   //memulai session yang disimpan pada browser
   session_start();
   if($_SESSION['status_login']!="sudah_login"){
-    header("location:../login_pegawai.php?pesan=belum_login");
+    header("location:../../MainFrame/index.php?pesan=belum_login");
 }
     
   //cek apakah sesuai status sudah login? kalau belum akan kembali ke form login
@@ -55,7 +55,7 @@ $no = 1;
                                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $_SESSION['nama'];?></a>
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="../logout_pegawai.php">Logout</a>
+                                        <a class="dropdown-item" href="../logout.php">Logout</a>
                                     </div>
                                 </li>
                             </ul>
@@ -75,12 +75,10 @@ $no = 1;
 
                 <!-- Modal Tambah Jurusan -->
                     <?php 
-                    #kode otomatis untuk jurusan
+                    
                     require '../../vendor/autoload.php';
                     require '../../model/connect.php';
-                    # $sequence_id_jurusan = $collection->jurusan->find([])->sort(array('kode_jurusan'=>1));
-                    # -1 MAX , 1 MIN
-                    #$sequence_id_jurusan = $collection ->jurusan->find([],['limit'=>1,'sort'=>['kode_jurusan'=>-1]]);
+                   
                     $sequence_id_notulensi = $collection->notulensi->find([],['limit'=>1,'sort'=>['kode_notulensi'=>-1]]);
                     if(isset($_POST['submit'])){
                         date_default_timezone_set('Asia/Jakarta');
@@ -207,7 +205,7 @@ $no = 1;
                             <th>Judul Notulensi</th>
                             <th>Tautan Notulensi</th>
                             <th>Periode</th>
-                        </tr>
+                
                     </thead>
                     <tbody>
 

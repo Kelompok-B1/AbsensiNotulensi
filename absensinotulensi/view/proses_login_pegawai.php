@@ -45,7 +45,7 @@ foreach ($pegawai as $pgw) {
     }  
     
     if($username !== $storedUsername && $password !== $storedPassword){
-        header("Location:login_pegawai.php?pesan=gagal");
+        header("Location:../MainFrame/index.php?pesan=gagal");
 
     }else if($username == $storedUsername && $password == $storedPassword && $_SESSION['jabatan']=='D'){ 
     

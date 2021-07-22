@@ -7,7 +7,7 @@ $no = 1;
   //memulai session yang disimpan pada browser
   session_start();
   if($_SESSION['status_login']!="sudah_login"){
-    header("location:../login_pegawai.php?pesan=belum_login");
+    header("location:../../MainFrame/index.php?pesan=belum_login");
 }
     
   //cek apakah sesuai status sudah login? kalau belum akan kembali ke form login
@@ -64,7 +64,7 @@ $no = 1;
                                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $_SESSION['nama'];?></a>
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="../logout_pegawai.php">Logout</a>
+                                        <a class="dropdown-item" href="../logout.php">Logout</a>
                                     </div>
                                 </li>
                             </ul>
@@ -76,8 +76,9 @@ $no = 1;
                 
                 <br> <a href="v_mahasiswa.php" type = "submit" class = "btn btn-primary post_search_submit"><i class="fa fa-reply"></i> Kembali Ke Beranda</a>
                 <h4 align=center><b>Data Absensi <?php echo $_SESSION['nama'];?></b></h4><br>
-              
-   
+                <a href="v_dosen_cetak_abs.php" ><button type="button" class="btn btn-warning"> <i class="fa fa-print"></i> Cetak Data</button></a> <br>   
+                <br>
+
 
                 <!-- Modal Tambah Jurusan -->
                     
@@ -171,7 +172,7 @@ $no = 1;
                             <th>NIM</th>
                             <th>Kode MK</th>
                             <th>Kode kelas</th>
-                            <th>NIP</th>
+                       
                             <th>Foto</th>  
                             <th>Periode</th>
                             <th>Status</th>
@@ -180,9 +181,10 @@ $no = 1;
                     <tbody>
 
                     <?php 
+                            
                             $absensi= $collection->absensi->find(['data_absen.nip'=>$_SESSION['nip']]);
                             # $arai = $collection ->inventory->aggregate({$project=>{colors=>{$size=>array('$colors')}}});
-                                  #$absensi = $collection ->absensi->find([]);
+                                  #$notulensi = $collection ->notulensi->find([]);
                             
                             foreach ($absensi as $abs){
                                 echo "<tr>";
@@ -190,24 +192,20 @@ $no = 1;
                                 echo "<td>".$abs->kode_absensi."</td>";
                                 echo "<td>".$abs->data_absen->nim."</td>";
                                 echo "<td>".$abs->data_absen->kode_mk."</td>";
-                                echo "<td>".$abs->kode_kelas."</td>";
                                 echo "<td>".$abs->data_absen->nip."</td>";
                                 echo "<td><img src='../mahasiswa/images/selfie/".$abs->url_foto."'></td>";
                                 echo "<td>".$abs->periode->waktu->jam.":".$abs->periode->waktu->menit.
                                 ":".$abs->periode->waktu->detik." ".$abs->periode->tanggal->hari."-"
                                 .$abs->periode->tanggal->bulan."-".$abs->periode->tanggal->tahun."
                                 </td>";
-
+                               
                                 if($abs->status==1){
                                     echo "<td> Hadir </td>";
                                 }else{
                                     echo "<td> Tidak Hadir </td>";
                                 }
-                               
-                                echo "<tr>";
-                               
-                               
-                                
+
+                                echo "</tr>";
                                 $no +=1;
                                 
                             }

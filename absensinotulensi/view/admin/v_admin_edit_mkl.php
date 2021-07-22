@@ -13,19 +13,7 @@ try{$collection->matakuliah->updateOne(
        
        
        ]]       
-       
-       /*['nim' => $_POST['nim'],
-       'nama_mhs' => $_POST['nama'],
-       'jk' => $_POST['jk'],
-       'kode_kelas' => $_POST['kode_kelas'],
-       'no_telp' => $_POST['no_telp'],
-       'alamat' => (object)array('kampung' => $_POST['kampung'],'no_rumah' => $_POST['no_rumah'],
-                   'rt' => $_POST['rt'],'rw' => $_POST['rw'],'desa' => $_POST['desa'],
-                   'kode_pos' => $_POST['kode_pos'],'kecamatan' => $_POST['kecamatan'],
-                   'kabupaten_kota' => $_POST['kabupaten_kota'],'provinsi' => $_POST['provinsi'],),
-       'email' => $_POST['email']]*/
-
-
+ 
    );}
    catch(exception $e){
 

@@ -9,7 +9,7 @@ error_reporting(0);
   //memulai session yang disimpan pada browser
   session_start();
   if($_SESSION['status_login']!="sudah_login"){
-    header("location:../login_pegawai.php?pesan=belum_login");
+    header("location:../../MainFrame/index.php?pesan=belum_login");
 }
     
   //cek apakah sesuai status sudah login? kalau belum akan kembali ke form login
@@ -57,7 +57,7 @@ error_reporting(0);
                                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $_SESSION['nama'];?></a>
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="../logout_pegawai.php">Logout</a>
+                                        <a class="dropdown-item" href="../logout.php">Logout</a>
                                     </div>
                                 </li>
                             </ul>
@@ -70,6 +70,10 @@ error_reporting(0);
                 </form>
                 <br><a href="v_dosen.php" type = "submit" class = "btn btn-primary post_search_submit"><i class="fa fa-reply"></i> Kembali Ke Beranda</a>
                 <p><h3 align=center><b>Data Mata Kuliah</b></h3><br>
+                <a href="v_dosen_cetak_mkl.php" ><button type="button" class="btn btn-warning"> <i class="fa fa-print"></i> Cetak Data</button></a> <br>   
+                <br>
+
+
                 
                              </div>
 

@@ -10,7 +10,7 @@ error_reporting(0);
   //memulai session yang disimpan pada browser
   session_start();
   if($_SESSION['status_login']!="sudah_login"){
-    header("location:../login_pegawai.php?pesan=belum_login");
+    header("location:../../MainFrame/index.php?pesan=belum_login");
 }
     
   //cek apakah sesuai status sudah login? kalau belum akan kembali ke form login
@@ -58,7 +58,7 @@ error_reporting(0);
                                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $_SESSION['nama'];?></a>
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="../logout_pegawai.php">Logout</a>
+                                        <a class="dropdown-item" href="../logout.php">Logout</a>
                                     </div>
                                 </li>
                             </ul>
@@ -513,8 +513,10 @@ error_reporting(0);
                 <a href="v_admin.php" type = "submit" class = "btn btn-primary post_search_submit"><i class="fa fa-reply"></i> Kembali Ke Beranda</a>
                 <p><h3 align=center><b>Data Dosen</b></h3><br>
                 
-                <button  type="button"  class="btn btn-success" data-toggle="modal" data-target="#exampleModalDosen"><i class="fa fa-plus"></i> Tambah Data Baru</button><br/><br/>
-                
+                <button  type="button"  class="btn btn-success" data-toggle="modal" data-target="#exampleModalDosen"><i class="fa fa-plus"></i> Tambah Data Baru</button>
+
+                <a href="v_admin_cetak_dsn.php" ><button type="button" class="btn btn-warning"> <i class="fa fa-print"></i> Cetak Data</button></a> <br><br>
+          
                 </div>
         <div class="container">
             <table id="example" class="table table-striped table-bordered">
@@ -601,7 +603,8 @@ error_reporting(0);
         
         <br>
         <h3 align=center><b>Data Admin</b></h3>
-        <button  type="button"  class="btn btn-success" data-toggle="modal" data-target="#exampleModalAdmin"><i class="fa fa-plus"></i> Tambah Data Baru</button><br/><br/>
+        <button  type="button"  class="btn btn-success" data-toggle="modal" data-target="#exampleModalAdmin"><i class="fa fa-plus"></i> Tambah Data Baru</button>
+        <a href="v_admin_cetak_adm.php" ><button type="button" class="btn btn-warning"> <i class="fa fa-print"></i> Cetak Data</button></a> <br><br>
                 
      
         <br>
@@ -622,8 +625,7 @@ error_reporting(0);
     
         <?php 
         
-       # $arai = $collection ->inventory->aggregate({$project=>{colors=>{$size=>array('$colors')}}});
-        
+    
        $dosen= $collection->pegawai->aggregate([
         ['$match'=>(object)array('jabatan'=>'A')],
         ]); 

@@ -58,7 +58,7 @@ foreach ($mahasiswa as $mhs) {
     }  
     
     if($username !== $storedUsername && $password !== $storedPassword){
-        header("Location:login_mahasiswa.php?pesan=gagal");
+        header("Location:../MainFrame/index.php?pesan=gagal");
     }
     else if($username == $storedUsername && $password == $storedPassword){ 
     
